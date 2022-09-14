@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Interpreter implements CritterInterpreter {
 
 	public void executeCritter(Critter c) {
-		System.out.println("test");
+		System.out.println("test2");
 		return;
 	}
 
