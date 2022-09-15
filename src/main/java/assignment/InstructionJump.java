@@ -37,7 +37,7 @@ class InstructionJump {
             throw new IllegalArgumentException("Invalid instruction jump integer portion.");
         }
 
-        if (isRegister && (n < 1 || n > 10)) {
+        if (isRegister && (n < 1 || n > Critter.REGISTERS)) {
             throw new IllegalArgumentException("Register index must be between r1 and r10.");
         }
     }

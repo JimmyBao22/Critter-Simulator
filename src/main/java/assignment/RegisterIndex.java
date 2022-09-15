@@ -22,8 +22,12 @@ class RegisterIndex {
             throw new IllegalArgumentException("Register index must be an integer.");
         }
 
-        if (n < 1 || n > 10) {
+        if (n < 1 || n > Critter.REGISTERS) {
             throw new IllegalArgumentException("Register index must be between r1 and r10.");
         }
+    }
+
+    public int getIndex() {
+        return n;
     }
 }

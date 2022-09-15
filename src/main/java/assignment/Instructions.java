@@ -10,6 +10,7 @@ class Hop extends Instruction {
 
     public void run(Critter c) {
         c.hop();
+        c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
 }
 
@@ -22,6 +23,7 @@ class Left extends Instruction {
     }
     public void run(Critter c) {
         c.left();
+        c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
 }
 
@@ -35,6 +37,7 @@ class Right extends Instruction {
 
     public void run(Critter c) {
         c.right();
+        c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
 }
 
@@ -51,15 +54,20 @@ class Infect extends Instruction {
     private final InstructionJump n;
 
     public Infect(String[] arguments) {
-        if (arguments.length != 1) {
-            throw new IllegalArgumentException("Infect takes one instruction jump");
+        if (arguments.length != 0 && arguments.length != 1) {
+            throw new IllegalArgumentException("Infect takes an optional instruction jump");
         }
-
-        n = new InstructionJump(arguments[0]);
+        
+        if (arguments.length == 0) {
+            n = new InstructionJump("1");
+        } else {
+            n = new InstructionJump(arguments[0]);
+        }
     }
 
     public void run(Critter c) {
-        c.infect();
+        c.infect(n.getResultantLineNumber(c));
+        c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
 }
 
@@ -78,6 +86,7 @@ class Eat extends Instruction {
     }
     public void run(Critter c) {
         c.eat();
+        c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
 }
 
@@ -102,7 +111,8 @@ class Go extends Instruction {
     }
 
     public void run(Critter c) {
-        // TODO
+        // Set the next code line to the result of the instruction jump
+        c.setNextCodeLine(n.getResultantLineNumber(c));
     }
 }
 
@@ -122,7 +132,13 @@ class IfRandom extends Instruction {
     }
 
     public void run(Critter c) {
-        // TODO
+        if (Math.random() < 0.5) {
+            // jump to the nth instruction
+            c.setNextCodeLine(n.getResultantLineNumber(c));
+        } else {
+            // otherwise continue as usual
+            c.setNextCodeLine(c.getNextCodeLine() + 1);
+        }
     }
 }
 
@@ -141,7 +157,12 @@ class IfHungry extends Instruction {
     }
 
     public void run(Critter c) {
-        // TODO
+        if (c.getHungerLevel() != Critter.HungerLevel.SATISFIED) {
+            // either hungry or starving
+            c.setNextCodeLine(n.getResultantLineNumber(c));
+        } else {
+            c.setNextCodeLine(c.getNextCodeLine() + 1);
+        }
     }
 }
 
@@ -161,7 +182,12 @@ class IfStarving extends Instruction {
     }
 
     public void run(Critter c) {
-        // TODO
+        if (c.getHungerLevel() == Critter.HungerLevel.STARVING) {
+            // either hungry or starving
+            c.setNextCodeLine(n.getResultantLineNumber(c));
+        } else {
+            c.setNextCodeLine(c.getNextCodeLine() + 1);
+        }
     }
 }
 
@@ -183,7 +209,12 @@ class IfEmpty extends Instruction {
     }
 
     public void run(Critter c) {
-        // TODO
+        if (c.getCellContent(b.getIntValue()) == Critter.EMPTY) {
+            // either hungry or starving
+            c.setNextCodeLine(n.getResultantLineNumber(c));
+        } else {
+            c.setNextCodeLine(c.getNextCodeLine() + 1);
+        }
     }
 }
 
@@ -207,7 +238,12 @@ class IfAlly extends Instruction {
     }
 
     public void run(Critter c) {
-        // TODO
+        if (c.getCellContent(b.getIntValue()) == Critter.ALLY) {
+            // either hungry or starving
+            c.setNextCodeLine(n.getResultantLineNumber(c));
+        } else {
+            c.setNextCodeLine(c.getNextCodeLine() + 1);
+        }
     }
 }
 
@@ -231,7 +267,12 @@ class IfEnemy extends Instruction {
     }
 
     public void run(Critter c) {
-        // TODO
+        if (c.getCellContent(b.getIntValue()) == Critter.ENEMY) {
+            // either hungry or starving
+            c.setNextCodeLine(n.getResultantLineNumber(c));
+        } else {
+            c.setNextCodeLine(c.getNextCodeLine() + 1);
+        }
     }
 }
 
@@ -255,7 +296,12 @@ class IfWall extends Instruction {
     }
 
     public void run(Critter c) {
-        // TODO
+        if (c.getCellContent(b.getIntValue()) == Critter.WALL) {
+            // either hungry or starving
+            c.setNextCodeLine(n.getResultantLineNumber(c));
+        } else {
+            c.setNextCodeLine(c.getNextCodeLine() + 1);
+        }
     }
 }
 
@@ -281,7 +327,13 @@ class IfAngle extends Instruction {
     }
 
     public void run(Critter c) {
-        // TODO
+        int offAngle = c.getOffAngle(b1.getIntValue());
+        if (offAngle == b2.getIntValue()) {
+            // either hungry or starving
+            c.setNextCodeLine(n.getResultantLineNumber(c));
+        } else {
+            c.setNextCodeLine(c.getNextCodeLine() + 1);
+        }
     }
 }
 
@@ -300,7 +352,8 @@ class Write extends Instruction {
     }
 
     public void run(Critter c) {
-        // TODO
+        c.setReg(r.getIndex(), v);
+        c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
 }
 
@@ -319,7 +372,9 @@ class Add extends Instruction {
     }
 
     public void run(Critter c) {
-        // TODO
+        int result = c.getReg(r1.getIndex()) + c.getReg(r2.getIndex());
+        c.setReg(r1.getIndex(), result);
+        c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
 }
 
@@ -338,7 +393,9 @@ class Sub extends Instruction {
     }
 
     public void run(Critter c) {
-        // TODO
+        int result = c.getReg(r1.getIndex()) - c.getReg(r2.getIndex());
+        c.setReg(r1.getIndex(), result);
+        c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
 }
 
@@ -355,7 +412,9 @@ class Inc extends Instruction {
     }
 
     public void run(Critter c) {
-        // TODO
+        int result = c.getReg(r1.getIndex()) + 1;
+        c.setReg(r1.getIndex(), result);
+        c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
 }
 
@@ -372,7 +431,9 @@ class Dec extends Instruction {
     }
 
     public void run(Critter c) {
-        // TODO
+        int result = c.getReg(r1.getIndex()) - 1;
+        c.setReg(r1.getIndex(), result);
+        c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
 }
 
@@ -397,7 +458,11 @@ class IfLt extends Instruction {
     }
 
     public void run(Critter c) {
-        // TODO
+        if (c.getReg(r1.getIndex()) < c.getReg(r2.getIndex())) {
+            c.setNextCodeLine(n.getResultantLineNumber(c));
+        } else {
+            c.setNextCodeLine(c.getNextCodeLine() + 1);
+        }
     }
 }
 
@@ -422,7 +487,11 @@ class IfEq extends Instruction {
     }
 
     public void run(Critter c) {
-        // TODO
+        if (c.getReg(r1.getIndex()) == c.getReg(r2.getIndex())) {
+            c.setNextCodeLine(n.getResultantLineNumber(c));
+        } else {
+            c.setNextCodeLine(c.getNextCodeLine() + 1);
+        }
     }
 }
 
@@ -447,6 +516,10 @@ class IfGt extends Instruction {
     }
 
     public void run(Critter c) {
-        // TODO
+        if (c.getReg(r1.getIndex()) > c.getReg(r2.getIndex())) {
+            c.setNextCodeLine(n.getResultantLineNumber(c));
+        } else {
+            c.setNextCodeLine(c.getNextCodeLine() + 1);
+        }
     }
 }

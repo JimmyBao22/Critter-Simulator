@@ -15,4 +15,8 @@ class Bearing {
             throw new IllegalArgumentException("Bearing must be a multiple of 45 between 0 and 315.");
         }
     }
+
+    public int getIntValue() {
+        return n;
+    }
 }
