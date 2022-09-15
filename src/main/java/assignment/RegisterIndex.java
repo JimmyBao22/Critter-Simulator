@@ -1,14 +1,29 @@
 package assignment;
 
-public class RegisterIndex extends SpeciesInstructionArgument {
+public class RegisterIndex {
+
+    // stores which register we are referencing
+    private int n;
+
     public RegisterIndex(String argument) {
-        verifyArgumentCanBeParsed(argument);
-        // TODO verify that the argument can be parsed into a register, store it, otherwise return
-    }
+        if (argument == null || argument.length() == 0) {
+            throw new IllegalArgumentException("Register index must be a non-empty string.");
+        }
 
-    boolean verifyArgumentCanBeParsed(String argument) {
-        // TODO make sure register is between 1 and 10
-        return false;
-    }
+        if (argument.charAt(0) != 'r') {
+            throw new IllegalArgumentException("Register index must begin with r.");
+        }
 
+        argument = argument.substring(1);
+
+        try {
+            this.n = Integer.parseInt(argument);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Register index must be an integer.");
+        }
+
+        if (n < 1 || n > 10) {
+            throw new IllegalArgumentException("Register index must be between r1 and r10.");
+        }
+    }
 }

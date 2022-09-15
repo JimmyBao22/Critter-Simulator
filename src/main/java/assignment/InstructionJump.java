@@ -1,29 +1,57 @@
 package assignment;
 
-public class InstructionJump extends SpeciesInstructionArgument {
+public class InstructionJump {
+
     private boolean isRelative;
     private boolean isRegister;
 
-    int n;
+    // the integer portion of the instruction jump
+    private int n;
 
     public InstructionJump(String argument) {
-        verifyArgumentCanBeParsed(argument);
-        // TODO verify that the argument can be parsed into a instruction delta/absolute, store it, otherwise return
-    }
+        if (argument == null || argument.length() == 0) {
+            throw new IllegalArgumentException("Instruction jump must be a non-empty string.");
+        }
 
-    public int getResultantLineNumber(Critter c) {
-        if (isRelative) {
-            return c.getNextCodeLine() + n;
-        } else if (isRegister) {
-            return c.getReg(n);
-        } else {
-            return n;
+        // determine if the jump is relative
+        if (argument.charAt(0) == '+' || argument.charAt(0) == '-') {
+            this.isRelative = true;
+            this.isRegister = false;
+        }
+        // determine if the jump is a register index
+        else if (argument.charAt(0) == 'r') {
+            this.isRelative = false;
+            this.isRegister = true;
+            // removes the r from the register index, while setting respective boolean to true
+            argument = argument.substring(1);
+        }
+        // determine if the jump is an absolute jump
+        else {
+            this.isRelative = false;
+            this.isRegister = false;
+        }
+
+        try {
+            this.n = Integer.parseInt(argument);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid instruction jump integer portion.");
+        }
+
+        if (isRegister && (n < 1 || n > 10)) {
+            throw new IllegalArgumentException("Register index must be between r1 and r10.");
         }
     }
 
-    boolean verifyArgumentCanBeParsed(String argument) {
-        // TODO check if it is relative/absolute jump
-        return false;
+    // gets the specific instruction line number after this jump
+    public int getResultantLineNumber(Critter c) {
+        if (isRelative) {
+            return c.getNextCodeLine() + n;
+        }
+        else if (isRegister) {
+            return c.getReg(n);
+        }
+        else {
+            return n;
+        }
     }
-
 }

@@ -1,13 +1,18 @@
 package assignment;
 
-public class Bearing extends SpeciesInstructionArgument {
-    public Bearing(String argument) {
-        verifyArgumentCanBeParsed(argument);
-        // TODO verify that the argument can be parsed into a bearing, store it, otherwise return
-    }
+public class Bearing {
 
-    boolean verifyArgumentCanBeParsed(String argument) {
-        // TODO make sure that the bearing is a multiple of 45 between 0 and 315
-        return false;
+    private int n;
+
+    public Bearing(String argument) {
+        try {
+            this.n = Integer.parseInt(argument);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Bearing must be an integer.");
+        }
+
+        if (n < 0 || n > 315 || n % 45 != 0) {
+            throw new IllegalArgumentException("Bearing must be a multiple of 45 between 0 and 315.");
+        }
     }
 }
