@@ -47,8 +47,7 @@ class Right extends Instruction {
         c.right();
         c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
-
-    @Override
+    
     public boolean isTerminatingInstruction() {
         return true;
     }
@@ -82,8 +81,7 @@ class Infect extends Instruction {
         c.infect(n.getResultantLineNumber(c));
         c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
-
-    @Override
+    
     public boolean isTerminatingInstruction() {
         return true;
     }
@@ -106,8 +104,7 @@ class Eat extends Instruction {
         c.eat();
         c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
-
-    @Override
+    
     public boolean isTerminatingInstruction() {
         return true;
     }
@@ -137,8 +134,7 @@ class Go extends Instruction {
         // Set the next code line to the result of the instruction jump
         c.setNextCodeLine(n.getResultantLineNumber(c));
     }
-
-    @Override
+    
     public boolean isTerminatingInstruction() {
         return false;
     }
@@ -168,8 +164,7 @@ class IfRandom extends Instruction {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
     }
-
-    @Override
+    
     public boolean isTerminatingInstruction() {
         return false;
     }
@@ -197,8 +192,7 @@ class IfHungry extends Instruction {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
     }
-
-    @Override
+    
     public boolean isTerminatingInstruction() {
         return false;
     }
@@ -227,8 +221,7 @@ class IfStarving extends Instruction {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
     }
-
-    @Override
+    
     public boolean isTerminatingInstruction() {
         return false;
     }
@@ -259,8 +252,7 @@ class IfEmpty extends Instruction {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
     }
-
-    @Override
+    
     public boolean isTerminatingInstruction() {
         return false;
     }
