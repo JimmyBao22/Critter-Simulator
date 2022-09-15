@@ -1,6 +1,6 @@
 package assignment;
 
-public class Bearing {
+class Bearing {
 
     private int n;
 

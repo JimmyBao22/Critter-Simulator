@@ -1,6 +1,6 @@
 package assignment;
 
-public class RegisterIndex {
+class RegisterIndex {
 
     // stores which register we are referencing
     private int n;

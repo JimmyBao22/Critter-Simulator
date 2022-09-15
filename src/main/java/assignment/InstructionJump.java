@@ -1,6 +1,6 @@
 package assignment;
 
-public class InstructionJump {
+class InstructionJump {
 
     private boolean isRelative;
     private boolean isRegister;
