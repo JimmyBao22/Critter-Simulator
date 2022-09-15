@@ -34,7 +34,7 @@ class Right extends Instruction {
     }
 
     public void run(Critter c) {
-        c.left();
+        c.right();
     }
 }
 
