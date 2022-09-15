@@ -12,6 +12,10 @@ class Hop extends Instruction {
         c.hop();
         c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
+
+    public boolean isTerminatingInstruction() {
+        return true;
+    }
 }
 
 // The critter turns left 45 degrees to face a new direction.
@@ -24,6 +28,10 @@ class Left extends Instruction {
     public void run(Critter c) {
         c.left();
         c.setNextCodeLine(c.getNextCodeLine() + 1);
+    }
+
+    public boolean isTerminatingInstruction() {
+        return true;
     }
 }
 
@@ -38,6 +46,11 @@ class Right extends Instruction {
     public void run(Critter c) {
         c.right();
         c.setNextCodeLine(c.getNextCodeLine() + 1);
+    }
+
+    @Override
+    public boolean isTerminatingInstruction() {
+        return true;
     }
 }
 
@@ -69,6 +82,11 @@ class Infect extends Instruction {
         c.infect(n.getResultantLineNumber(c));
         c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
+
+    @Override
+    public boolean isTerminatingInstruction() {
+        return true;
+    }
 }
 
 /*
@@ -87,6 +105,11 @@ class Eat extends Instruction {
     public void run(Critter c) {
         c.eat();
         c.setNextCodeLine(c.getNextCodeLine() + 1);
+    }
+
+    @Override
+    public boolean isTerminatingInstruction() {
+        return true;
     }
 }
 
@@ -114,6 +137,11 @@ class Go extends Instruction {
         // Set the next code line to the result of the instruction jump
         c.setNextCodeLine(n.getResultantLineNumber(c));
     }
+
+    @Override
+    public boolean isTerminatingInstruction() {
+        return false;
+    }
 }
 
 /*
@@ -140,6 +168,11 @@ class IfRandom extends Instruction {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
     }
+
+    @Override
+    public boolean isTerminatingInstruction() {
+        return false;
+    }
 }
 
 /*
@@ -163,6 +196,11 @@ class IfHungry extends Instruction {
         } else {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
+    }
+
+    @Override
+    public boolean isTerminatingInstruction() {
+        return false;
     }
 }
 
@@ -188,6 +226,11 @@ class IfStarving extends Instruction {
         } else {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
+    }
+
+    @Override
+    public boolean isTerminatingInstruction() {
+        return false;
     }
 }
 
@@ -215,6 +258,11 @@ class IfEmpty extends Instruction {
         } else {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
+    }
+
+    @Override
+    public boolean isTerminatingInstruction() {
+        return false;
     }
 }
 
@@ -245,6 +293,10 @@ class IfAlly extends Instruction {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
     }
+
+    public boolean isTerminatingInstruction() {
+        return false;
+    }
 }
 
 /*
@@ -274,6 +326,10 @@ class IfEnemy extends Instruction {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
     }
+
+    public boolean isTerminatingInstruction() {
+        return false;
+    }
 }
 
 /*
@@ -302,6 +358,10 @@ class IfWall extends Instruction {
         } else {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
+    }
+
+    public boolean isTerminatingInstruction() {
+        return false;
     }
 }
 
@@ -335,6 +395,10 @@ class IfAngle extends Instruction {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
     }
+
+    public boolean isTerminatingInstruction() {
+        return false;
+    }
 }
 
 // Write the integer v into register r.
@@ -354,6 +418,10 @@ class Write extends Instruction {
     public void run(Critter c) {
         c.setReg(r.getIndex(), v);
         c.setNextCodeLine(c.getNextCodeLine() + 1);
+    }
+
+    public boolean isTerminatingInstruction() {
+        return false;
     }
 }
 
@@ -376,6 +444,10 @@ class Add extends Instruction {
         c.setReg(r1.getIndex(), result);
         c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
+
+    public boolean isTerminatingInstruction() {
+        return false;
+    }
 }
 
 // Subtract the value of register r2 from that of r1 and store the result in r1.
@@ -397,6 +469,10 @@ class Sub extends Instruction {
         c.setReg(r1.getIndex(), result);
         c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
+
+    public boolean isTerminatingInstruction() {
+        return false;
+    }
 }
 
 // Increment the value of register r1.
@@ -416,6 +492,10 @@ class Inc extends Instruction {
         c.setReg(r1.getIndex(), result);
         c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
+
+    public boolean isTerminatingInstruction() {
+        return false;
+    }
 }
 
 // Decrement the value of register r1.
@@ -434,6 +514,10 @@ class Dec extends Instruction {
         int result = c.getReg(r1.getIndex()) - 1;
         c.setReg(r1.getIndex(), result);
         c.setNextCodeLine(c.getNextCodeLine() + 1);
+    }
+
+    public boolean isTerminatingInstruction() {
+        return false;
     }
 }
 
@@ -464,6 +548,10 @@ class IfLt extends Instruction {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
     }
+
+    public boolean isTerminatingInstruction() {
+        return false;
+    }
 }
 
 /*
@@ -493,6 +581,10 @@ class IfEq extends Instruction {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
     }
+
+    public boolean isTerminatingInstruction() {
+        return false;
+    }
 }
 
 /*
@@ -521,5 +613,9 @@ class IfGt extends Instruction {
         } else {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
+    }
+
+    public boolean isTerminatingInstruction() {
+        return false;
     }
 }

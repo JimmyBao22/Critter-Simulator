@@ -18,17 +18,29 @@ public class Interpreter implements CritterInterpreter {
 		// Decrement to convert from 1-indexed to 0-indexed
 		int nextLine = c.getNextCodeLine() - 1;
 
-		// Do nothing if we try to access invalid instructions
-		if (nextLine < 0 || nextLine >= instructions.size()) {
-			return;
-		}
-
 		try {
-			instructions.get(nextLine).run(c);
+			// Do nothing if we try to access invalid instructions
+			// while the current line is not a terminating instruction, run the line.
+			while (!isInvalidLine(nextLine, instructions.size()) &&
+					!instructions.get(nextLine).isTerminatingInstruction()) {
+				instructions.get(nextLine).run(c);
+				nextLine = c.getNextCodeLine() - 1;
+			}
+
+			// need to run last the terminating instruction
+			if (!isInvalidLine(nextLine, instructions.size()) &&
+					instructions.get(nextLine).isTerminatingInstruction()) {
+				instructions.get(nextLine).run(c);
+			}
 		} catch (Exception e) {
 			// TODO handle and report error, but take no actions
 		}
 	}
+
+	private boolean isInvalidLine(int nextLine, int instructionSize) {
+		return (nextLine < 0 || nextLine >= instructionSize);
+	}
+
 
 	// TODO comment according to API
 	public CritterSpecies loadSpecies(String filename) throws IOException {
