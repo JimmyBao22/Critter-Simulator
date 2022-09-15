@@ -28,7 +28,7 @@ class Left extends Instruction {
 // The critter turns right 45 degrees to face a new direction.
 class Right extends Instruction {
     public Right(String[] arguments) {
-        if (arguments != null && arguments.length != 0) {
+        if (arguments.length != 0) {
             throw new IllegalArgumentException("Right does not take arguments");
         }
     }
@@ -51,7 +51,7 @@ class Infect extends Instruction {
     private InstructionJump n;
 
     public Infect(String[] arguments) {
-        if (arguments == null || arguments.length != 1) {
+        if (arguments.length != 1) {
             throw new IllegalArgumentException("Infect takes one instruction jump");
         }
 
@@ -72,7 +72,7 @@ class Infect extends Instruction {
  */
 class Eat extends Instruction {
     public Eat(String[] arguments) {
-        if (arguments == null || arguments.length != 0) {
+        if (arguments.length != 0) {
             throw new IllegalArgumentException("Eat does not take arguments");
         }
     }
@@ -94,7 +94,7 @@ class Go extends Instruction {
     private InstructionJump n;
 
     public Go(String[] arguments) {
-        if (arguments == null || arguments.length != 1) {
+        if (arguments.length != 1) {
             throw new IllegalArgumentException("Go takes one instruction jump");
         }
 
@@ -114,7 +114,7 @@ class IfRandom extends Instruction {
     private InstructionJump n;
 
     public IfRandom(String[] arguments) {
-        if (arguments == null || arguments.length != 1) {
+        if (arguments.length != 1) {
             throw new IllegalArgumentException("IfRandom takes one instruction jump");
         }
 
@@ -133,7 +133,7 @@ class IfHungry extends Instruction {
     private InstructionJump n;
 
     public IfHungry(String[] arguments) {
-        if (arguments == null || arguments.length != 1) {
+        if (arguments.length != 1) {
             throw new IllegalArgumentException("IfHungry takes one instruction jump");
         }
 
@@ -153,7 +153,7 @@ class IfStarving extends Instruction {
     private InstructionJump n;
 
     public IfStarving(String[] arguments) {
-        if (arguments == null || arguments.length != 1) {
+        if (arguments.length != 1) {
             throw new IllegalArgumentException("IfStarving takes one instruction jump");
         }
 
@@ -174,7 +174,7 @@ class IfEmpty extends Instruction {
     private InstructionJump n;
 
     public IfEmpty(String[] arguments) {
-        if (arguments == null || arguments.length != 2) {
+        if (arguments.length != 2) {
             throw new IllegalArgumentException("IfRandom takes one bearing and one instruction jump");
         }
 
@@ -188,7 +188,7 @@ class IfEmpty extends Instruction {
 }
 
 /*
-    If the adjacent square at the specified bearing is occupied by a critter of the same
+    If the adjacent square at the specified bearing b is occupied by a critter of the same
     species, the critter will jump to the n
     th instruction; otherwise, continue execution with
     the next instruction.
@@ -198,7 +198,7 @@ class IfAlly extends Instruction {
     private InstructionJump n;
 
     public IfAlly(String[] arguments) {
-        if (arguments == null || arguments.length != 2) {
+        if (arguments.length != 2) {
             throw new IllegalArgumentException("ifAlly takes one bearing and one instruction jump");
         }
 
@@ -222,7 +222,7 @@ class IfEnemy extends Instruction {
     private InstructionJump n;
 
     public IfEnemy(String[] arguments) {
-        if (arguments == null || arguments.length != 2) {
+        if (arguments.length != 2) {
             throw new IllegalArgumentException("IfEnemy takes one bearing and one instruction jump");
         }
 
@@ -246,7 +246,7 @@ class IfWall extends Instruction {
     private InstructionJump n;
 
     public IfWall(String[] arguments) {
-        if (arguments == null || arguments.length != 2) {
+        if (arguments.length != 2) {
             throw new IllegalArgumentException("IfWall takes one bearing and one instruction jump");
         }
 
@@ -270,7 +270,7 @@ class IfAngle extends Instruction {
     private InstructionJump n;
 
     public IfAngle(String[] arguments) {
-        if (arguments == null || arguments.length != 3) {
+        if (arguments.length != 3) {
             throw new IllegalArgumentException("IfAngle takes two bearings and one instruction jump");
         }
 
@@ -290,12 +290,12 @@ class Write extends Instruction {
     private Integer v;
 
     public Write(String[] arguments) {
-        if (arguments == null || arguments.length != 2) {
+        if (arguments.length != 2) {
             throw new IllegalArgumentException("Write takes one register index and one integer");
         }
 
         r = new RegisterIndex(arguments[0]);
-        v = new Integer(arguments[1]);
+        v = Integer.parseInt(arguments[1]);
     }
 
     public void run(Critter c) {
@@ -308,7 +308,7 @@ class Add extends Instruction {
     private RegisterIndex r1, r2;
 
     public Add(String[] arguments) {
-        if (arguments == null || arguments.length != 2) {
+        if (arguments.length != 2) {
             throw new IllegalArgumentException("Add takes two register indices");
         }
 
@@ -326,7 +326,7 @@ class Sub extends Instruction {
     private RegisterIndex r1, r2;
 
     public Sub(String[] arguments) {
-        if (arguments == null || arguments.length != 2) {
+        if (arguments.length != 2) {
             throw new IllegalArgumentException("Sub takes two register indices");
         }
 
@@ -344,7 +344,7 @@ class Inc extends Instruction {
     private RegisterIndex r1;
 
     public Inc(String[] arguments) {
-        if (arguments == null || arguments.length != 1) {
+        if (arguments.length != 1) {
             throw new IllegalArgumentException("Inc takes one register index");
         }
 
@@ -361,7 +361,7 @@ class Dec extends Instruction {
     private RegisterIndex r1;
 
     public Dec(String[] arguments) {
-        if (arguments == null || arguments.length != 1) {
+        if (arguments.length != 1) {
             throw new IllegalArgumentException("Dec takes one register index");
         }
 
@@ -383,7 +383,7 @@ class IfLt extends Instruction {
     private InstructionJump n;
 
     public IfLt(String[] arguments) {
-        if (arguments == null || arguments.length != 3) {
+        if (arguments.length != 3) {
             throw new IllegalArgumentException("IfLt takes two register indices and one instruction jump");
         }
 
@@ -407,7 +407,7 @@ class IfEq extends Instruction {
     private InstructionJump n;
 
     public IfEq(String[] arguments) {
-        if (arguments == null || arguments.length != 3) {
+        if (arguments.length != 3) {
             throw new IllegalArgumentException("IfEq takes two register indices and one instruction jump");
         }
 
@@ -431,7 +431,7 @@ class IfGt extends Instruction {
     private InstructionJump n;
 
     public IfGt(String[] arguments) {
-        if (arguments == null || arguments.length != 3) {
+        if (arguments.length != 3) {
             throw new IllegalArgumentException("IfGt takes two register indices and one instruction jump");
         }
 
