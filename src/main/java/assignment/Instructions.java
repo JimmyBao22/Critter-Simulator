@@ -48,7 +48,7 @@ class Right extends Instruction {
     at the first instruction.
  */
 class Infect extends Instruction {
-    private InstructionJump n;
+    private final InstructionJump n;
 
     public Infect(String[] arguments) {
         if (arguments.length != 1) {
@@ -83,7 +83,7 @@ class Eat extends Instruction {
 
 /*
     This instruction jumps to another line in the behavior code. If n is a number preceded
-    by a ’+’ or ’-’ character, then the jump is a relative jump, and execution should continue
+    by a '+' or '-' character, then the jump is a relative jump, and execution should continue
     at the current instruction +/- n. If n is a number with no prefix, then the instruction is
     an absolute jump, and execution should continue at the n
     th instruction in the critter’s behavior code. If n is a register number, then the instruction is an absolute jump to
@@ -91,7 +91,7 @@ class Eat extends Instruction {
     target line number using any of these notations.
  */
 class Go extends Instruction {
-    private InstructionJump n;
+    private final InstructionJump n;
 
     public Go(String[] arguments) {
         if (arguments.length != 1) {
@@ -111,7 +111,7 @@ class Go extends Instruction {
     the rest of the time.
  */
 class IfRandom extends Instruction {
-    private InstructionJump n;
+    private final InstructionJump n;
 
     public IfRandom(String[] arguments) {
         if (arguments.length != 1) {
@@ -130,7 +130,7 @@ class IfRandom extends Instruction {
     If the critter is currently either hungry or starving, the critter will jump to the nth instruction.
  */
 class IfHungry extends Instruction {
-    private InstructionJump n;
+    private final InstructionJump n;
 
     public IfHungry(String[] arguments) {
         if (arguments.length != 1) {
@@ -147,10 +147,10 @@ class IfHungry extends Instruction {
 
 /*
     If the critter is currently starving (as in, the explicit starving condition—if the critter is only in the hungry condition,
-    it doesn’t count) the critter will jump to the nth instruction
+    it doesn't count) the critter will jump to the nth instruction
  */
 class IfStarving extends Instruction {
-    private InstructionJump n;
+    private final InstructionJump n;
 
     public IfStarving(String[] arguments) {
         if (arguments.length != 1) {
@@ -170,8 +170,8 @@ class IfStarving extends Instruction {
     unoccupied, the critter will jump to the nth instruction.
  */
 class IfEmpty extends Instruction {
-    private Bearing b;
-    private InstructionJump n;
+    private final Bearing b;
+    private final InstructionJump n;
 
     public IfEmpty(String[] arguments) {
         if (arguments.length != 2) {
@@ -194,8 +194,8 @@ class IfEmpty extends Instruction {
     the next instruction.
  */
 class IfAlly extends Instruction {
-    private Bearing b;
-    private InstructionJump n;
+    private final Bearing b;
+    private final InstructionJump n;
 
     public IfAlly(String[] arguments) {
         if (arguments.length != 2) {
@@ -218,8 +218,8 @@ class IfAlly extends Instruction {
     the next instruction
  */
 class IfEnemy extends Instruction {
-    private Bearing b;
-    private InstructionJump n;
+    private final Bearing b;
+    private final InstructionJump n;
 
     public IfEnemy(String[] arguments) {
         if (arguments.length != 2) {
@@ -242,8 +242,8 @@ class IfEnemy extends Instruction {
     otherwise, continue execution with the next instruction
  */
 class IfWall extends Instruction {
-    private Bearing b;
-    private InstructionJump n;
+    private final Bearing b;
+    private final InstructionJump n;
 
     public IfWall(String[] arguments) {
         if (arguments.length != 2) {
@@ -266,8 +266,9 @@ class IfWall extends Instruction {
     continue execution with the next instruction.
  */
 class IfAngle extends Instruction {
-    private Bearing b1, b2;
-    private InstructionJump n;
+    private final Bearing b1;
+    private final Bearing b2;
+    private final InstructionJump n;
 
     public IfAngle(String[] arguments) {
         if (arguments.length != 3) {
@@ -286,8 +287,8 @@ class IfAngle extends Instruction {
 
 // Write the integer v into register r.
 class Write extends Instruction {
-    private RegisterIndex r;
-    private Integer v;
+    private final RegisterIndex r;
+    private final Integer v;
 
     public Write(String[] arguments) {
         if (arguments.length != 2) {
@@ -305,7 +306,8 @@ class Write extends Instruction {
 
 // Add the value of register r2 to that of r1 and store the result in r1.
 class Add extends Instruction {
-    private RegisterIndex r1, r2;
+    private final RegisterIndex r1;
+    private final RegisterIndex r2;
 
     public Add(String[] arguments) {
         if (arguments.length != 2) {
@@ -323,7 +325,8 @@ class Add extends Instruction {
 
 // Subtract the value of register r2 from that of r1 and store the result in r1.
 class Sub extends Instruction {
-    private RegisterIndex r1, r2;
+    private final RegisterIndex r1;
+    private final RegisterIndex r2;
 
     public Sub(String[] arguments) {
         if (arguments.length != 2) {
@@ -341,7 +344,7 @@ class Sub extends Instruction {
 
 // Increment the value of register r1.
 class Inc extends Instruction {
-    private RegisterIndex r1;
+    private final RegisterIndex r1;
 
     public Inc(String[] arguments) {
         if (arguments.length != 1) {
@@ -358,7 +361,7 @@ class Inc extends Instruction {
 
 // Decrement the value of register r1.
 class Dec extends Instruction {
-    private RegisterIndex r1;
+    private final RegisterIndex r1;
 
     public Dec(String[] arguments) {
         if (arguments.length != 1) {
@@ -379,8 +382,9 @@ class Dec extends Instruction {
     otherwise continue execution with the next instruction.
  */
 class IfLt extends Instruction {
-    private RegisterIndex r1, r2;
-    private InstructionJump n;
+    private final RegisterIndex r1;
+    private final RegisterIndex r2;
+    private final InstructionJump n;
 
     public IfLt(String[] arguments) {
         if (arguments.length != 3) {
@@ -403,8 +407,9 @@ class IfLt extends Instruction {
     otherwise continue execution with the next instruction
  */
 class IfEq extends Instruction {
-    private RegisterIndex r1, r2;
-    private InstructionJump n;
+    private final RegisterIndex r1;
+    private final RegisterIndex r2;
+    private final InstructionJump n;
 
     public IfEq(String[] arguments) {
         if (arguments.length != 3) {
@@ -427,8 +432,9 @@ class IfEq extends Instruction {
     otherwise continue execution with the next instruction
  */
 class IfGt extends Instruction {
-    private RegisterIndex r1, r2;
-    private InstructionJump n;
+    private final RegisterIndex r1;
+    private final RegisterIndex r2;
+    private final InstructionJump n;
 
     public IfGt(String[] arguments) {
         if (arguments.length != 3) {

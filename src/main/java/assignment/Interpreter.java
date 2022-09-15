@@ -14,7 +14,20 @@ import java.util.*;
  */
 public class Interpreter implements CritterInterpreter {
 	public void executeCritter(Critter c) {
+		List<Instruction> instructions = c.getCode();
+		// Decrement to convert from 1-indexed to 0-indexed
+		int nextLine = c.getNextCodeLine() - 1;
 
+		// Do nothing if we try to access invalid instructions
+		if (nextLine < 0 || nextLine >= instructions.size()) {
+			return;
+		}
+
+		try {
+			instructions.get(nextLine).run(c);
+		} catch (Exception e) {
+			// TODO handle and report error, but take no actions
+		}
 	}
 
 	// TODO comment according to API
