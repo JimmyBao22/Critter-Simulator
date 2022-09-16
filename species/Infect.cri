@@ -1,0 +1,6 @@
+Infect
+hop
+infect 4
+go 1
+
+Infects what is in front of it. Infected critters stand still.
