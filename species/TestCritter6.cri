@@ -1,0 +1,103 @@
+TestCritter6
+ifstarving 17
+eat
+ifrandom 48
+ifstarving 32
+go 41
+ifstarving 39
+ifwall 270 35
+ifenemy 90 15
+ifstarving 2
+right
+ifenemy 270 44
+ifally 0 3
+right
+iflt r10 r1 8
+go 18
+eat
+ifenemy 90 35
+sub r8 r5
+dec r4
+ifangle 315 225 28
+left
+right
+ifally 135 26
+ifhungry 43
+sub r1 r2
+ifhungry 40
+inc r8
+sub r8 r5
+ifrandom 3
+ifempty 90 8
+right
+left
+ifhungry 21
+write r5 9
+ifally 225 21
+ifrandom 45
+right
+ifally 315 20
+ifrandom 29
+hop
+ifangle 180 315 32
+go 0
+ifeq r7 r4 49
+ifwall 180 48
+ifeq r6 r9 45
+ifempty 270 12
+ifeq r3 r3 8
+ifrandom 33
+go 8
+sub r3 r1
+infect 7
+write r6 9
+go 48
+ifeq r4 r10 26
+iflt r7 r5 13
+ifstarving 21
+eat
+go 35
+ifenemy 315 32
+ifrandom 8
+ifhungry 39
+ifstarving 34
+ifhungry 41
+ifgt r4 r6 46
+ifempty 135 10
+write r10 0
+add r4 r2
+go 40
+ifangle 135 0 47
+go 44
+iflt r1 r10 23
+hop
+ifenemy 90 7
+right
+infect 19
+left
+ifgt r10 r4 36
+infect 12
+inc r2
+add r1 r2
+iflt r2 r2 34
+go 10
+iflt r4 r7 40
+ifally 135 10
+ifhungry 34
+iflt r1 r10 43
+go 49
+add r7 r4
+go 13
+right
+dec r10
+ifstarving 3
+ifwall 315 3
+sub r2 r6
+iflt r9 r10 25
+ifally 90 32
+infect 31
+write r10 1
+left
+left
+
+
