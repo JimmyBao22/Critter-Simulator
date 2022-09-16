@@ -1,21 +1,35 @@
 package assignment;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 
-public class CreateCritters {
+public class ReproduceCritters {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         String[] arr = {"hop", "hop", "hop", "hop", "hop", "hop", "hop", "hop", "left", "left", "left", "right", "right", "right",
                 "infect", "infect", "infect", "eat", "eat", "eat", "go", "go", "go", "ifrandom", "ifhungry", "ifstarving", "ifempty",
-            "ifally", "ifenemy", "ifwall", "ifangle", "write", "add", "sub", "inc", "dec", "iflt", "ifeq", "ifgt"};
+                "ifally", "ifenemy", "ifwall", "ifangle", "write", "add", "sub", "inc", "dec", "iflt", "ifeq", "ifgt"};
         int n = arr.length;
+
+        BufferedReader in = new BufferedReader(new FileReader("species/BestTestCritter.cri"));
+        int k = 50;
+        String[] bestCritterInstructions = new String[k];
+        in.readLine();
+        for (int i=0; i<k; i++) {
+            bestCritterInstructions[i] = in.readLine();
+        }
 
         for (int i=0; i<10; i++) {
             PrintWriter out = new PrintWriter("species/TestCritter" + i + ".cri");
             out.println("TestCritter" + i );
 
-            for (int j=0; j<50; j++) {
+            for (int j=0; j<k; j++) {
+
+                if (Math.random() < 0.9) {
+                    // use previous critters
+                    out.println(bestCritterInstructions[j]);
+                    continue;
+                }
+
                 int index = (int)(Math.random() * n);
 
                 switch (arr[index]) {
