@@ -108,7 +108,7 @@ public class CreateCritters {
             if (relativeJump >= 0) {
                 return "+" + relativeJump;
             } else {
-                return "-" + relativeJump;
+                return Integer.toString(relativeJump);
             }
         } else if (randomValue < 0.66) {
             return createRegister();
