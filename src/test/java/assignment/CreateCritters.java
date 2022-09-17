@@ -14,8 +14,9 @@ public class CreateCritters {
         for (int i=0; i<10; i++) {
             PrintWriter out = new PrintWriter("species/TestCritter" + i + ".cri");
             out.println("TestCritter" + i );
+            int numInstructions = (int) (Math.random() * 100 + 10);
 
-            for (int j=0; j<50; j++) {
+            for (int j=0; j < numInstructions; j++) {
                 int index = (int)(Math.random() * n);
 
                 switch (arr[index]) {
@@ -29,37 +30,37 @@ public class CreateCritters {
                         out.println("right");
                         break;
                     case "infect":
-                        out.println("infect " + createInstructionJump());
+                        out.println("infect " + createInstructionJump(numInstructions));
                         break;
                     case "eat":
                         out.println("eat");
                         break;
                     case "go":
-                        out.println("go " + createInstructionJump());
+                        out.println("go " + createInstructionJump(numInstructions));
                         break;
                     case "ifrandom":
-                        out.println("ifrandom " + createInstructionJump());
+                        out.println("ifrandom " + createInstructionJump(numInstructions));
                         break;
                     case "ifhungry":
-                        out.println("ifhungry "+ createInstructionJump());
+                        out.println("ifhungry "+ createInstructionJump(numInstructions));
                         break;
                     case "ifstarving":
-                        out.println("ifstarving "+ createInstructionJump());
+                        out.println("ifstarving "+ createInstructionJump(numInstructions));
                         break;
                     case "ifempty":
-                        out.println("ifempty " + createBearing() + " " + createInstructionJump());
+                        out.println("ifempty " + createBearing() + " " + createInstructionJump(numInstructions));
                         break;
                     case "ifally":
-                        out.println("ifally " + createBearing() + " " + createInstructionJump());
+                        out.println("ifally " + createBearing() + " " + createInstructionJump(numInstructions));
                         break;
                     case "ifenemy":
-                        out.println("ifenemy " + createBearing() + " " + createInstructionJump());
+                        out.println("ifenemy " + createBearing() + " " + createInstructionJump(numInstructions));
                         break;
                     case "ifwall":
-                        out.println("ifwall " + createBearing() + " " + createInstructionJump());
+                        out.println("ifwall " + createBearing() + " " + createInstructionJump(numInstructions));
                         break;
                     case "ifangle":
-                        out.println("ifangle " + createBearing() + " " + createBearing() + " " + createInstructionJump());
+                        out.println("ifangle " + createBearing() + " " + createBearing() + " " + createInstructionJump(numInstructions));
                         break;
                     case "write":
                         out.println("write " + createRegister() + " " + (int)(Math.random() * 10));
@@ -77,12 +78,13 @@ public class CreateCritters {
                         out.println("dec " + createRegister());
                         break;
                     case "iflt":
-                        out.println("iflt " + createRegister() + " " + createRegister() + " " + createInstructionJump());
+                        out.println("iflt " + createRegister() + " " + createRegister() + " " + createInstructionJump(numInstructions));
                         break;
                     case "ifeq":
-                        out.println("ifeq " + createRegister() + " " + createRegister() + " " + createInstructionJump());break;
+                        out.println("ifeq " + createRegister() + " " + createRegister() + " " + createInstructionJump(numInstructions));
+                        break;
                     case "ifgt":
-                        out.println("ifgt " + createRegister() + " " + createRegister() + " " + createInstructionJump());
+                        out.println("ifgt " + createRegister() + " " + createRegister() + " " + createInstructionJump(numInstructions));
                         break;
                 }
             }
@@ -100,7 +102,19 @@ public class CreateCritters {
         return "r" + (int)(Math.random() * 10 + 1);
     }
 
-    public static int createInstructionJump() {
-        return (int)(Math.random() * 50);
+    public static String createInstructionJump(int numInstructions) {
+        double randomValue = Math.random();
+        if (randomValue < 0.33) {
+            int relativeJump = (int) (Math.random() * numInstructions/5 - numInstructions/10);
+            if (relativeJump >= 0) {
+                return "+" + relativeJump;
+            } else {
+                return "-" + relativeJump;
+            }
+        } else if (randomValue < 0.66) {
+            return createRegister();
+        } else {
+            return Integer.toString((int) (Math.random() * numInstructions + 1));
+        }
     }
 }
