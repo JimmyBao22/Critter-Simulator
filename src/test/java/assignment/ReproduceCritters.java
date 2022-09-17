@@ -2,6 +2,8 @@ package assignment;
 
 import java.io.*;
 
+import static assignment.CreateCritters.*;
+
 public class ReproduceCritters {
 
     public static void main(String[] args) throws IOException {
@@ -105,26 +107,6 @@ public class ReproduceCritters {
             out.println();
             out.println();
             out.close();
-        }
-    }
-
-    public static int createBearing() {
-        return 45 * (int)(Math.random() * 8);
-    }
-
-    public static String createRegister() {
-        return "r" + (int)(Math.random() * 10 + 1);
-    }
-
-    public static String createInstructionJump(int numInstructions) {
-        double randomValue = Math.random();
-        if (randomValue < 0.33) {
-            int relativeJump = (int) (Math.random() * numInstructions/5 - numInstructions/10);
-            return Integer.toString(relativeJump);
-        } else if (randomValue < 0.66) {
-            return createRegister();
-        } else {
-            return Integer.toString((int) (Math.random() * numInstructions + 1));
         }
     }
 }

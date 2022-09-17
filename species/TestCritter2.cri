@@ -1,26 +1,25 @@
 TestCritter2
+hop
+hop
+ifrandom 5
+hop
+ifangle 180 90 r4
+eat
+hop
+ifwall 45 20
 right
 left
+hop
 eat
-write r5 5
-ifeq r7 r10 +1
-ifangle 315 315 20
-infect 13
-add r4 r6
-right
-ifeq r5 r5 r1
 hop
-write r5 6
-hop
-sub r8 r8
-go r6
-ifgt r8 r10 23
-right
+left
+ifenemy 180 +0
+ifangle 90 225 +0
+left
+ifeq r9 r6 r1
+ifempty 0 r5
+left
 eat
-write r5 4
-sub r3 r5
-iflt r2 r10 +0
-ifangle 135 315 +0
-hop
+sub r3 r3
 
 
