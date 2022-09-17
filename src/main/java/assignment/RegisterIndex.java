@@ -30,4 +30,8 @@ class RegisterIndex {
     public int getIndex() {
         return n;
     }
+
+    public String toString() {
+        return "r" + n;
+    }
 }

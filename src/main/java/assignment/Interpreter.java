@@ -139,7 +139,6 @@ public class Interpreter implements CritterInterpreter {
 						default:
 							throw new IllegalArgumentException("Unknown operation");
 				}
-
 				line = br.readLine();
 			}
 

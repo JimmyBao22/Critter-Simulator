@@ -19,4 +19,8 @@ class Bearing {
     public int getIntValue() {
         return n;
     }
+
+    public String toString() {
+        return Integer.toString(n);
+    }
 }

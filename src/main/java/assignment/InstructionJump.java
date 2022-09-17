@@ -54,4 +54,19 @@ class InstructionJump {
             return n;
         }
     }
+
+    public String toString() {
+        if (isRelative) {
+            if (n >= 0) {
+                return "+" + n;
+            } else {
+                return Integer.toString(n);
+            }
+        } else if (isRegister) {
+            return "r" + Integer.toString(n);
+        } else {
+            // absolute jump
+            return Integer.toString(n);
+        }
+    }
 }

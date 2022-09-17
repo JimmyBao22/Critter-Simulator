@@ -69,7 +69,7 @@ class Infect extends Instruction {
         if (arguments.length != 0 && arguments.length != 1) {
             throw new IllegalArgumentException("Infect takes an optional instruction jump");
         }
-        
+
         if (arguments.length == 0) {
             n = new InstructionJump("1");
         } else {
