@@ -1,62 +1,81 @@
 TestCritter3
-ifrandom --4
-ifempty 135 r3
-left
-inc r4
-sub r2 r10
-ifstarving r1
-ifenemy 315 8
-infect r5
+ifhungry 12
 hop
-go 27
-hop
-go r1
-hop
-infect +4
-add r2 r2
-infect 21
-ifgt r5 r4 +5
-ifally 90 r6
-hop
-hop
-hop
-ifwall 0 1
-ifgt r9 r6 +4
-infect 57
-go r5
-eat
-ifempty 270 +3
-dec r4
+ifhungry 22
+ifempty 225 --1
 right
-inc r8
+ifwall 45 +4
+ifenemy 315 +7
+right
+sub r5 r3
 eat
-infect --3
-ifangle 225 90 48
-write r6 8
-go r6
-inc r3
+dec r9
+dec r10
+ifwall 45 r4
+hop
+ifangle 180 180 61
+go +0
+ifstarving 2
+infect --2
+ifangle 315 225 --2
+hop
+left
+iflt r8 r6 28
+ifgt r10 r6 +6
+ifgt r1 r10 r8
+hop
+hop
+right
+infect r7
+right
 eat
-hop
-infect 25
-ifally 45 54
-ifally 315 r1
-left
-infect +6
-infect r1
-hop
-ifeq r1 r5 r10
-dec r2
-left
-ifangle 135 270 +3
-ifangle 90 270 5
-sub r7 r2
+dec r5
 hop
 hop
-ifgt r5 r9 +1
-ifgt r3 r9 r10
-ifangle 225 0 36
-go --1
+right
+eat
 right
 left
+infect r8
+go +4
+ifally 225 --4
+ifangle 45 225 12
+go --2
+ifally 0 r5
+left
+infect r4
+ifhungry --1
+infect +8
+infect r10
+ifwall 135 +1
+right
+hop
+left
+hop
+hop
+ifstarving --2
+hop
+ifally 90 70
+right
+hop
+ifwall 180 40
+right
+sub r4 r2
+go 1
+ifgt r4 r1 --4
+iflt r9 r4 r9
+go 14
+right
+eat
+ifwall 315 77
+hop
+go +7
+hop
+iflt r9 r10 r8
+ifhungry +4
+hop
+right
+hop
+sub r10 r3
 
 
