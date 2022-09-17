@@ -1,27 +1,27 @@
 TestCritter8
 ifenemy 180 10
-ifhungry 22
+inc r8
 hop
 inc r7
-right
+ifrandom 45
 hop
 ifally 180 26
 ifeq r3 r4 22
-left
+inc r8
+write r10 6
 hop
-go 45
-ifgt r4 r1 10
-ifstarving 24
-left
-ifwall 225 37
-ifgt r5 r3 2
+ifgt r5 r10 32
 right
-hop
-ifhungry 46
-go 39
-go 17
-hop
-left
+eat
+ifwall 225 37
+go 7
+ifgt r3 r2 6
+write r2 4
+ifgt r8 r7 1
+ifwall 225 17
+infect 30
+go 33
+ifeq r9 r1 38
 ifstarving 5
 right
 hop
@@ -30,24 +30,24 @@ hop
 left
 ifangle 225 135 34
 hop
-ifhungry 15
+left
 ifwall 270 38
-hop
+right
 infect 40
 eat
 eat
-ifally 315 44
-go 31
+ifstarving 30
+ifangle 225 45 8
 hop
 infect 22
-ifally 315 24
+iflt r3 r3 5
 hop
 hop
 infect 45
-go 40
-ifally 0 23
+ifeq r1 r3 26
 hop
-right
+iflt r6 r5 13
+go 16
 dec r9
 
 
