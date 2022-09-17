@@ -145,6 +145,7 @@ public class Interpreter implements CritterInterpreter {
 			return new CritterSpecies(speciesName, instructions);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
+			e.printStackTrace();
 			return null;
 		}
 	}
