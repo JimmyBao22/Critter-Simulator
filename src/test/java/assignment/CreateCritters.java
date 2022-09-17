@@ -105,7 +105,11 @@ public class CreateCritters {
         double randomValue = Math.random();
         if (randomValue < 0.33) {
             int relativeJump = (int) (Math.random() * numInstructions/5 - numInstructions/10);
-            return Integer.toString(relativeJump);
+            if (relativeJump >= 0) {
+                return "+" + relativeJump;
+            } else {
+                return Integer.toString(relativeJump);
+            }
         } else if (randomValue < 0.66) {
             return createRegister();
         } else {
