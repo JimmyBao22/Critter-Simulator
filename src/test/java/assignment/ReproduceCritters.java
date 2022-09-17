@@ -120,11 +120,7 @@ public class ReproduceCritters {
         double randomValue = Math.random();
         if (randomValue < 0.33) {
             int relativeJump = (int) (Math.random() * numInstructions/5 - numInstructions/10);
-            if (relativeJump >= 0) {
-                return "+" + relativeJump;
-            } else {
-                return "-" + relativeJump;
-            }
+            return Integer.toString(relativeJump);
         } else if (randomValue < 0.66) {
             return createRegister();
         } else {
