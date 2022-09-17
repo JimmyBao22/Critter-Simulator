@@ -355,6 +355,10 @@ class IfWall extends Instruction {
     public boolean isTerminatingInstruction() {
         return false;
     }
+
+    public String toString() {
+        return "ifwall " + b.toString() + " " + n.toString();
+    }
 }
 
 /*
@@ -391,6 +395,10 @@ class IfAngle extends Instruction {
     public boolean isTerminatingInstruction() {
         return false;
     }
+
+    public String toString() {
+        return "ifangle " + b1.toString() + " " + b2.toString() + " " + n.toString();
+    }
 }
 
 // Write the integer v into register r.
@@ -414,6 +422,10 @@ class Write extends Instruction {
 
     public boolean isTerminatingInstruction() {
         return false;
+    }
+
+    public String toString() {
+        return "write " + r.toString() + " " + v.toString();
     }
 }
 
@@ -440,6 +452,10 @@ class Add extends Instruction {
     public boolean isTerminatingInstruction() {
         return false;
     }
+
+    public String toString() {
+        return "add " + r1.toString() + " " + r2.toString();
+    }
 }
 
 // Subtract the value of register r2 from that of r1 and store the result in r1.
@@ -465,6 +481,10 @@ class Sub extends Instruction {
     public boolean isTerminatingInstruction() {
         return false;
     }
+
+    public String toString() {
+        return "sub " + r1.toString() + " " + r2.toString();
+    }
 }
 
 // Increment the value of register r1.
@@ -488,6 +508,10 @@ class Inc extends Instruction {
     public boolean isTerminatingInstruction() {
         return false;
     }
+
+    public String toString() {
+        return "inc " + r1.toString();
+    }
 }
 
 // Decrement the value of register r1.
@@ -510,6 +534,10 @@ class Dec extends Instruction {
 
     public boolean isTerminatingInstruction() {
         return false;
+    }
+
+    public String toString() {
+        return "dec " + r1.toString();
     }
 }
 
@@ -544,6 +572,10 @@ class IfLt extends Instruction {
     public boolean isTerminatingInstruction() {
         return false;
     }
+
+    public String toString() {
+        return "iflt " + r1.toString() + " " + r2.toString() + " " + n.toString();
+    }
 }
 
 /*
@@ -577,6 +609,10 @@ class IfEq extends Instruction {
     public boolean isTerminatingInstruction() {
         return false;
     }
+
+    public String toString() {
+        return "ifeq " + r1.toString() + " " + r2.toString() + " " + n.toString();
+    }
 }
 
 /*
@@ -609,5 +645,9 @@ class IfGt extends Instruction {
 
     public boolean isTerminatingInstruction() {
         return false;
+    }
+
+    public String toString() {
+        return "ifgt " + r1.toString() + " " + r2.toString() + " " + n.toString();
     }
 }
