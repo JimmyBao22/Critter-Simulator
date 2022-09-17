@@ -1,53 +1,18 @@
 TestCritter7
+ifwall 180 13
+add r9 r4
+iflt r8 r8 +0
+ifangle 90 225 +0
+go 15
+sub r8 r4
+go r2
+right
 left
-sub r3 r3
-right
+go r8
+go +0
 hop
-iflt r2 r7 0
-go 37
-left
-infect 4
+sub r8 r9
+add r10 r7
 hop
-ifempty 0 21
-infect 46
-right
-iflt r5 r1 4
-go 26
-ifempty 90 6
-ifangle 90 225 24
-hop
-go 29
-hop
-go 47
-hop
-right
-infect 21
-left
-infect 6
-right
-hop
-add r7 r1
-hop
-ifenemy 180 12
-infect 32
-hop
-hop
-left
-ifwall 90 12
-hop
-dec r3
-write r3 5
-eat
-hop
-eat
-infect 37
-hop
-right
-go 31
-go 25
-ifempty 225 15
-go 45
-infect 25
-right
 
 
