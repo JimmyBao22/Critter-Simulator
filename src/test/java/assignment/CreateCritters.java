@@ -4,10 +4,13 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 public class CreateCritters {
+
+    static String[] arr = {"hop", "hop", "hop", "hop", "hop", "hop", "hop", "hop", "left", "left", "left", "right", "right", "right",
+            "infect", "infect", "infect", "infect", "infect", "eat", "eat", "eat", "eat", "eat", "go", "go", "go",
+            "ifrandom", "ifhungry", "ifstarving", "ifempty", "ifally", "ifenemy", "ifwall", "ifangle", "write", "add",
+            "sub", "inc", "dec", "iflt", "ifeq", "ifgt"};
+
     public static void createRandomCritters(int numCritters) throws FileNotFoundException {
-        String[] arr = {"hop", "hop", "hop", "hop", "hop", "hop", "hop", "hop", "left", "left", "left", "right", "right", "right",
-                "infect", "infect", "infect", "eat", "eat", "eat", "go", "go", "go", "ifrandom", "ifhungry", "ifstarving", "ifempty",
-            "ifally", "ifenemy", "ifwall", "ifangle", "write", "add", "sub", "inc", "dec", "iflt", "ifeq", "ifgt"};
         int n = arr.length;
 
         for (int i = 0; i < numCritters; i++) {

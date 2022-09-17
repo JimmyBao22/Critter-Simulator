@@ -7,9 +7,6 @@ import static assignment.CreateCritters.*;
 public class ReproduceCritters {
 
     public static void main(String[] args) throws IOException {
-        String[] arr = {"hop", "hop", "hop", "hop", "hop", "hop", "hop", "hop", "left", "left", "left", "right", "right", "right",
-                "infect", "infect", "infect", "eat", "eat", "eat", "go", "go", "go", "ifrandom", "ifhungry", "ifstarving", "ifempty",
-                "ifally", "ifenemy", "ifwall", "ifangle", "write", "add", "sub", "inc", "dec", "iflt", "ifeq", "ifgt"};
         int n = arr.length;
 
         BufferedReader in = new BufferedReader(new FileReader("species/BestTestCritter.cri"));
