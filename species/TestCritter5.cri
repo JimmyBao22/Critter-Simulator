@@ -1,38 +1,22 @@
 TestCritter5
-sub r6 r10
-add r4 r1
-ifenemy 45 -1
-go r8
-go 32
+dec r6
 hop
-ifally 270 r10
+hop
 right
 hop
-ifhungry -1
-ifstarving r3
-iflt r6 r10 5
-add r9 r8
 right
-ifstarving +2
-eat
-right
-eat
-ifstarving r7
-eat
-infect -1
-sub r10 r3
+write r1 5
+ifgt r3 r1 16
+left
+left
 hop
+ifempty 225 14
+ifwall 180 5
+ifangle 90 90 5
 left
-go r5
-left
-left
-add r9 r2
-infect 1
-eat
-eat
-eat
-add r6 r6
-go 30
-infect +3
+ifangle 180 90 6
+hop
+ifeq r5 r7 2
+hop
 
 

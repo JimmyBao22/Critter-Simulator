@@ -1,79 +1,55 @@
 TestCritter7
-eat
 hop
-ifgt r1 r7 72
-go 53
-go r9
-infect 61
-eat
-eat
-eat
-go 12
-add r2 r9
-go +0
-inc r4
-ifempty 45 -6
+ifrandom -4
 hop
+ifempty 270 +1
+dec r1
+hop
+ifhungry +0
+ifangle 0 225 35
+hop
+ifgt r6 r7 +1
+hop
+ifenemy 315 +0
+iflt r10 r10 +4
+ifwall 180 r3
+left
+infect r6
+right
+eat
+write r8 0
+left
+eat
+left
+hop
+hop
+ifhungry 31
+ifally 180 r7
+write r5 8
+dec r6
 go -3
-write r10 5
-inc r8
 hop
-hop
-hop
-inc r9
-infect 67
-hop
-eat
-hop
-eat
-ifenemy 135 r6
-ifstarving +5
-hop
-hop
-ifwall 135 -1
-ifstarving 10
-go r2
-right
-infect +0
-hop
-eat
-ifally 135 r1
+left
+infect 52
+sub r6 r9
+ifangle 225 45 r2
 ifrandom 2
-ifempty 0 47
-ifangle 315 45 -2
-ifempty 270 3
-hop
-ifangle 315 135 r5
-hop
-ifstarving r8
-ifhungry 62
-go r5
-hop
-dec r7
-hop
-infect +3
-hop
-infect +0
-left
-go 50
 eat
-left
-iflt r8 r9 +7
-left
+ifenemy 270 34
 hop
-ifempty 315 41
+write r9 0
+eat
+right
+ifeq r2 r8 r4
+hop
+infect -3
+infect +0
+dec r5
+hop
+ifally 225 25
+eat
 right
 left
-ifgt r4 r3 -6
-ifhungry +7
-hop
-hop
-ifgt r2 r8 54
-hop
-infect 53
-hop
-ifeq r10 r7 -2
-hop
-left
+add r8 r7
 
 
