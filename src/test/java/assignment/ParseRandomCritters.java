@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class ParseRandomCritters {
+
     @Test
     void createAndParseRandomCritters() throws IOException {
         int numCritters = 10;

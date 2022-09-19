@@ -1,21 +1,23 @@
 package assignment;
 
 import java.io.*;
-
-import static assignment.CreateCritters.*;
+import java.util.ArrayList;
 
 public class ReproduceCritters {
 
     public static void main(String[] args) throws IOException {
-        int n = arr.length;
+        int n = CreateCritters.arr.length;
 
         BufferedReader in = new BufferedReader(new FileReader("species/BestTestCritter.cri"));
-        int k = 50;
-        String[] bestCritterInstructions = new String[k];
+        ArrayList<String> bestCritterInstructions = new ArrayList<>();
         in.readLine();
-        for (int i=0; i<k; i++) {
-            bestCritterInstructions[i] = in.readLine();
+        String line = in.readLine();
+        while (line != null && !line.equals("\n")) {
+            bestCritterInstructions.add(line);
+            line = in.readLine();
         }
+        int k = bestCritterInstructions.size();
+        int numInstructions = k;
 
         for (int i=0; i<10; i++) {
             PrintWriter out = new PrintWriter("species/TestCritter" + i + ".cri");
@@ -23,16 +25,15 @@ public class ReproduceCritters {
 
             for (int j=0; j<k; j++) {
 
-                if (Math.random() < 0.9) {
+                if (Math.random() < 0.8) {
                     // use previous critters
-                    out.println(bestCritterInstructions[j]);
+                    out.println(bestCritterInstructions.get(j));
                     continue;
                 }
 
                 int index = (int)(Math.random() * n);
-                int numInstructions = (int) (Math.random() * 100 + 10);
 
-                switch (arr[index]) {
+                switch (CreateCritters.arr[index]) {
                     case "hop":
                         out.println("hop");
                         break;
@@ -43,61 +44,61 @@ public class ReproduceCritters {
                         out.println("right");
                         break;
                     case "infect":
-                        out.println("infect " + createInstructionJump(numInstructions));
+                        out.println("infect " + CreateCritters.createInstructionJump(numInstructions));
                         break;
                     case "eat":
                         out.println("eat");
                         break;
                     case "go":
-                        out.println("go " + createInstructionJump(numInstructions));
+                        out.println("go " + CreateCritters.createInstructionJump(numInstructions));
                         break;
                     case "ifrandom":
-                        out.println("ifrandom " + createInstructionJump(numInstructions));
+                        out.println("ifrandom " + CreateCritters.createInstructionJump(numInstructions));
                         break;
                     case "ifhungry":
-                        out.println("ifhungry "+ createInstructionJump(numInstructions));
+                        out.println("ifhungry "+ CreateCritters.createInstructionJump(numInstructions));
                         break;
                     case "ifstarving":
-                        out.println("ifstarving "+ createInstructionJump(numInstructions));
+                        out.println("ifstarving "+ CreateCritters.createInstructionJump(numInstructions));
                         break;
                     case "ifempty":
-                        out.println("ifempty " + createBearing() + " " + createInstructionJump(numInstructions));
+                        out.println("ifempty " + CreateCritters.createBearing() + " " + CreateCritters.createInstructionJump(numInstructions));
                         break;
                     case "ifally":
-                        out.println("ifally " + createBearing() + " " + createInstructionJump(numInstructions));
+                        out.println("ifally " + CreateCritters.createBearing() + " " + CreateCritters.createInstructionJump(numInstructions));
                         break;
                     case "ifenemy":
-                        out.println("ifenemy " + createBearing() + " " + createInstructionJump(numInstructions));
+                        out.println("ifenemy " + CreateCritters.createBearing() + " " + CreateCritters.createInstructionJump(numInstructions));
                         break;
                     case "ifwall":
-                        out.println("ifwall " + createBearing() + " " + createInstructionJump(numInstructions));
+                        out.println("ifwall " + CreateCritters.createBearing() + " " + CreateCritters.createInstructionJump(numInstructions));
                         break;
                     case "ifangle":
-                        out.println("ifangle " + createBearing() + " " + createBearing() + " " + createInstructionJump(numInstructions));
+                        out.println("ifangle " + CreateCritters.createBearing() + " " + CreateCritters.createBearing() + " " + CreateCritters.createInstructionJump(numInstructions));
                         break;
                     case "write":
-                        out.println("write " + createRegister() + " " + (int)(Math.random() * 10));
+                        out.println("write " + CreateCritters.createRegister() + " " + (int)(Math.random() * 10));
                         break;
                     case "add":
-                        out.println("add " + createRegister() + " " + createRegister());
+                        out.println("add " + CreateCritters.createRegister() + " " + CreateCritters.createRegister());
                         break;
                     case "sub":
-                        out.println("sub " + createRegister() + " " + createRegister());
+                        out.println("sub " + CreateCritters.createRegister() + " " + CreateCritters.createRegister());
                         break;
                     case "inc":
-                        out.println("inc " + createRegister());
+                        out.println("inc " + CreateCritters.createRegister());
                         break;
                     case "dec":
-                        out.println("dec " + createRegister());
+                        out.println("dec " + CreateCritters.createRegister());
                         break;
                     case "iflt":
-                        out.println("iflt " + createRegister() + " " + createRegister() + " " + createInstructionJump(numInstructions));
+                        out.println("iflt " + CreateCritters.createRegister() + " " + CreateCritters.createRegister() + " " + CreateCritters.createInstructionJump(numInstructions));
                         break;
                     case "ifeq":
-                        out.println("ifeq " + createRegister() + " " + createRegister() + " " + createInstructionJump(numInstructions));
+                        out.println("ifeq " + CreateCritters.createRegister() + " " + CreateCritters.createRegister() + " " + CreateCritters.createInstructionJump(numInstructions));
                         break;
                     case "ifgt":
-                        out.println("ifgt " + createRegister() + " " + createRegister() + " " + createInstructionJump(numInstructions));
+                        out.println("ifgt " + CreateCritters.createRegister() + " " + CreateCritters.createRegister() + " " + CreateCritters.createInstructionJump(numInstructions));
                         break;
                 }
             }
