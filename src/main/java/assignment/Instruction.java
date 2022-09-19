@@ -1,5 +1,7 @@
 package assignment;
 
+import java.util.Arrays;
+
 public abstract class Instruction {
     public abstract void run(Critter c);
 
@@ -55,6 +57,12 @@ public abstract class Instruction {
             default:
                 throw new IllegalArgumentException("Unknown operation");
         }
+    }
+    static Instruction makeInstruction(String fullOperation) {
+        String[] tokens = fullOperation.split(" ");
+        String operationName = tokens[0];
+        tokens = Arrays.copyOfRange(tokens, 1, tokens.length);
+        return makeInstruction(operationName, tokens);
     }
 }
 
