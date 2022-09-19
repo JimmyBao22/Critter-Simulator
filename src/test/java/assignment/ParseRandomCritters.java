@@ -21,6 +21,7 @@ public class ParseRandomCritters {
         CritterInterpreter ci = new Interpreter();
 
         for (int i = 0; i < numCritters; i++) {
+            // read original file
             String filename = filePrefix + i + fileSuffix;
             StringBuilder text = new StringBuilder();
             BufferedReader br = new BufferedReader(new FileReader(filename));
@@ -32,11 +33,14 @@ public class ParseRandomCritters {
             }
             br.close();
 
+            // convert to objects
             CritterSpecies cs = ci.loadSpecies(filename);
             List<Instruction> instructions = cs.getCode();
             StringBuilder outputInstructions = new StringBuilder();
+            // convert back to string
             outputInstructions.append(cs.getName());
             outputInstructions.append("\n");
+
             for (Instruction inst : instructions) {
                 outputInstructions.append(inst.toString());
                 outputInstructions.append("\n");

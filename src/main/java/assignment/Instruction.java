@@ -7,56 +7,35 @@ public abstract class Instruction {
 
     public abstract boolean isTerminatingInstruction();
 
+    protected abstract boolean modifiesRegisters();
+
     // Calls the appropriate constructor for an instruction based on its name
     static Instruction makeInstruction(String operationName, String[] arguments) {
-        switch (operationName) {
-            case "hop":
-                return new Hop(arguments);
-            case "left":
-                return new Left(arguments);
-            case "right":
-                return new Right(arguments);
-            case "infect":
-                return new Infect(arguments);
-            case "eat":
-                return new Eat(arguments);
-            case "go":
-                return new Go(arguments);
-            case "ifrandom":
-                return new IfRandom(arguments);
-            case "ifhungry":
-                return new IfHungry(arguments);
-            case "ifstarving":
-                return new IfStarving(arguments);
-            case "ifempty":
-                return new IfEmpty(arguments);
-            case "ifally":
-                return new IfAlly(arguments);
-            case "ifenemy":
-                return new IfEnemy(arguments);
-            case "ifwall":
-                return new IfWall(arguments);
-            case "ifangle":
-                return new IfAngle(arguments);
-            case "write":
-                return new Write(arguments);
-            case "add":
-                return new Add(arguments);
-            case "sub":
-                return new Sub(arguments);
-            case "inc":
-                return new Inc(arguments);
-            case "dec":
-                return new Dec(arguments);
-            case "iflt":
-                return new IfLt(arguments);
-            case "ifeq":
-                return new IfEq(arguments);
-            case "ifgt":
-                return new IfGt(arguments);
-            default:
-                throw new IllegalArgumentException("Unknown operation");
-        }
+        return switch (operationName) {
+            case "hop" -> new Hop(arguments);
+            case "left" -> new Left(arguments);
+            case "right" -> new Right(arguments);
+            case "infect" -> new Infect(arguments);
+            case "eat" -> new Eat(arguments);
+            case "go" -> new Go(arguments);
+            case "ifrandom" -> new IfRandom(arguments);
+            case "ifhungry" -> new IfHungry(arguments);
+            case "ifstarving" -> new IfStarving(arguments);
+            case "ifempty" -> new IfEmpty(arguments);
+            case "ifally" -> new IfAlly(arguments);
+            case "ifenemy" -> new IfEnemy(arguments);
+            case "ifwall" -> new IfWall(arguments);
+            case "ifangle" -> new IfAngle(arguments);
+            case "write" -> new Write(arguments);
+            case "add" -> new Add(arguments);
+            case "sub" -> new Sub(arguments);
+            case "inc" -> new Inc(arguments);
+            case "dec" -> new Dec(arguments);
+            case "iflt" -> new IfLt(arguments);
+            case "ifeq" -> new IfEq(arguments);
+            case "ifgt" -> new IfGt(arguments);
+            default -> throw new IllegalArgumentException("Unknown operation");
+        };
     }
     static Instruction makeInstruction(String fullOperation) {
         String[] tokens = fullOperation.split(" ");
@@ -64,6 +43,8 @@ public abstract class Instruction {
         tokens = Arrays.copyOfRange(tokens, 1, tokens.length);
         return makeInstruction(operationName, tokens);
     }
+
+    protected abstract boolean hasBranch();
 }
 
 // The critter moves forward if the faced square is empty
@@ -77,6 +58,14 @@ class Hop extends Instruction {
     public void run(Critter c) {
         c.hop();
         c.setNextCodeLine(c.getNextCodeLine() + 1);
+    }
+
+    protected boolean modifiesRegisters() {
+        return false;
+    }
+
+    protected boolean hasBranch() {
+        return false;
     }
 
     public boolean isTerminatingInstruction() {
@@ -97,6 +86,14 @@ class Left extends Instruction {
     public void run(Critter c) {
         c.left();
         c.setNextCodeLine(c.getNextCodeLine() + 1);
+    }
+
+    protected boolean modifiesRegisters() {
+        return false;
+    }
+
+    protected boolean hasBranch() {
+        return false;
     }
 
     public boolean isTerminatingInstruction() {
@@ -120,7 +117,15 @@ class Right extends Instruction {
         c.right();
         c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
-    
+
+    protected boolean modifiesRegisters() {
+        return false;
+    }
+
+    protected boolean hasBranch() {
+        return false;
+    }
+
     public boolean isTerminatingInstruction() {
         return true;
     }
@@ -153,6 +158,14 @@ class Infect extends Instruction {
         } else {
             n = new InstructionJump(arguments[0]);
         }
+    }
+
+    protected boolean modifiesRegisters() {
+        return false;
+    }
+
+    protected boolean hasBranch() {
+        return false;
     }
 
     public void run(Critter c) {
@@ -191,6 +204,14 @@ class Eat extends Instruction {
         return true;
     }
 
+    protected boolean modifiesRegisters() {
+        return false;
+    }
+
+    protected boolean hasBranch() {
+        return false;
+    }
+
     public String toString() {
         return "eat";
     }
@@ -219,6 +240,14 @@ class Go extends Instruction {
     public void run(Critter c) {
         // Set the next code line to the result of the instruction jump
         c.setNextCodeLine(n.getResultantLineNumber(c));
+    }
+
+    protected boolean modifiesRegisters() {
+        return false;
+    }
+
+    protected boolean hasBranch() {
+        return false;
     }
     
     public boolean isTerminatingInstruction() {
@@ -254,6 +283,14 @@ class IfRandom extends Instruction {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
     }
+
+    protected boolean modifiesRegisters() {
+        return false;
+    }
+
+    protected boolean hasBranch() {
+        return true;
+    }
     
     public boolean isTerminatingInstruction() {
         return false;
@@ -285,6 +322,14 @@ class IfHungry extends Instruction {
         } else {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
+    }
+
+    protected boolean modifiesRegisters() {
+        return false;
+    }
+
+    protected boolean hasBranch() {
+        return true;
     }
     
     public boolean isTerminatingInstruction() {
@@ -318,6 +363,14 @@ class IfStarving extends Instruction {
         } else {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
+    }
+
+    protected boolean modifiesRegisters() {
+        return false;
+    }
+
+    protected boolean hasBranch() {
+        return true;
     }
     
     public boolean isTerminatingInstruction() {
@@ -353,6 +406,14 @@ class IfEmpty extends Instruction {
         } else {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
+    }
+
+    protected boolean modifiesRegisters() {
+        return false;
+    }
+
+    protected boolean hasBranch() {
+        return true;
     }
     
     public boolean isTerminatingInstruction() {
@@ -390,6 +451,14 @@ class IfAlly extends Instruction {
         } else {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
+    }
+
+    protected boolean hasBranch() {
+        return true;
+    }
+
+    protected boolean modifiesRegisters() {
+        return false;
     }
 
     public boolean isTerminatingInstruction() {
@@ -430,6 +499,14 @@ class IfEnemy extends Instruction {
         }
     }
 
+    protected boolean hasBranch() {
+        return true;
+    }
+
+    protected boolean modifiesRegisters() {
+        return false;
+    }
+
     public boolean isTerminatingInstruction() {
         return false;
     }
@@ -465,6 +542,14 @@ class IfWall extends Instruction {
         } else {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
+    }
+
+    protected boolean modifiesRegisters() {
+        return false;
+    }
+
+    protected boolean hasBranch() {
+        return true;
     }
 
     public boolean isTerminatingInstruction() {
@@ -507,6 +592,14 @@ class IfAngle extends Instruction {
         }
     }
 
+    protected boolean modifiesRegisters() {
+        return false;
+    }
+
+    protected boolean hasBranch() {
+        return true;
+    }
+
     public boolean isTerminatingInstruction() {
         return false;
     }
@@ -535,6 +628,22 @@ class Write extends Instruction {
         c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
 
+    protected boolean hasBranch() {
+        return false;
+    }
+
+    protected boolean modifiesRegisters() {
+        return true;
+    }
+
+    protected RegisterIndex getReg() {
+        return r;
+    }
+
+    protected Integer getV() {
+        return v;
+    }
+
     public boolean isTerminatingInstruction() {
         return false;
     }
@@ -558,10 +667,26 @@ class Add extends Instruction {
         r2 = new RegisterIndex(arguments[1]);
     }
 
+    protected RegisterIndex getR1() {
+        return r1;
+    }
+
+    protected RegisterIndex getR2() {
+        return r2;
+    }
+
     public void run(Critter c) {
         int result = c.getReg(r1.getIndex()) + c.getReg(r2.getIndex());
         c.setReg(r1.getIndex(), result);
         c.setNextCodeLine(c.getNextCodeLine() + 1);
+    }
+
+    protected boolean hasBranch() {
+        return false;
+    }
+
+    protected boolean modifiesRegisters() {
+        return true;
     }
 
     public boolean isTerminatingInstruction() {
@@ -593,6 +718,22 @@ class Sub extends Instruction {
         c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
 
+    protected boolean modifiesRegisters() {
+        return true;
+    }
+
+    protected RegisterIndex getR1() {
+        return r1;
+    }
+
+    protected RegisterIndex getR2() {
+        return r2;
+    }
+
+    protected boolean hasBranch() {
+        return false;
+    }
+
     public boolean isTerminatingInstruction() {
         return false;
     }
@@ -620,8 +761,20 @@ class Inc extends Instruction {
         c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
 
-    public boolean isTerminatingInstruction() {
+    protected boolean modifiesRegisters() {
+        return true;
+    }
+
+    protected RegisterIndex getR1() {
+        return r1;
+    }
+
+    protected boolean hasBranch() {
         return false;
+    }
+
+    public boolean isTerminatingInstruction() {
+        return true;
     }
 
     public String toString() {
@@ -645,6 +798,18 @@ class Dec extends Instruction {
         int result = c.getReg(r1.getIndex()) - 1;
         c.setReg(r1.getIndex(), result);
         c.setNextCodeLine(c.getNextCodeLine() + 1);
+    }
+
+    protected boolean modifiesRegisters() {
+        return true;
+    }
+
+    protected RegisterIndex getR1() {
+        return r1;
+    }
+
+    protected boolean hasBranch() {
+        return false;
     }
 
     public boolean isTerminatingInstruction() {
@@ -684,6 +849,14 @@ class IfLt extends Instruction {
         }
     }
 
+    protected boolean modifiesRegisters() {
+        return false;
+    }
+
+    protected boolean hasBranch() {
+        return true;
+    }
+
     public boolean isTerminatingInstruction() {
         return false;
     }
@@ -721,6 +894,14 @@ class IfEq extends Instruction {
         }
     }
 
+    protected boolean modifiesRegisters() {
+        return false;
+    }
+
+    protected boolean hasBranch() {
+        return true;
+    }
+
     public boolean isTerminatingInstruction() {
         return false;
     }
@@ -756,6 +937,14 @@ class IfGt extends Instruction {
         } else {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
+    }
+
+    protected boolean hasBranch() {
+        return true;
+    }
+
+    protected boolean modifiesRegisters() {
+        return false;
     }
 
     public boolean isTerminatingInstruction() {
