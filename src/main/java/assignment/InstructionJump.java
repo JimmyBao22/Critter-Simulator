@@ -55,6 +55,18 @@ class InstructionJump {
         }
     }
 
+    protected int getN() {
+        return n;
+    }
+
+    protected boolean getIsRegister() {
+        return isRegister;
+    }
+
+    protected boolean getIsRelative() {
+        return isRelative;
+    }
+
     public String toString() {
         if (isRelative) {
             if (n >= 0) {

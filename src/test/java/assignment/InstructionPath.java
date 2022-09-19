@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Stack;
 
 public class InstructionPath {
-    private class TreeNode {
+    static private class TreeNode {
         private Instruction instruction;
         private TreeNode nextInstrIfTrue;
         private TreeNode nextInstrIfFalse;
@@ -22,6 +22,14 @@ public class InstructionPath {
 
             // handle register modification if it occurs
             modifyRegisters(previousRegisters);
+        }
+
+        TreeNode getNextNode() {
+            return getNextNode(true);
+        }
+
+        TreeNode getNextNode(boolean condition) {
+            return condition ? nextInstrIfTrue : nextInstrIfFalse;
         }
 
         void modifyRegisters(int[] previousRegisters) {
@@ -72,15 +80,24 @@ public class InstructionPath {
             }
         }
 
-        void addNextInstr(String nextInstructionText) {
-            if (this.instruction.hasBranch()) {
-                // TODO
-            }
-
-            this.addNextInstr(instruction, true);
+        // Adds the true and false instructions to the node, used with branching
+        void addNextInstr(String trueInstruction, String falseInstruction) {
+            addNextInstr(trueInstruction, true);
+            addNextInstr(falseInstruction, false);
         }
 
-        TreeNode makeProgramTree(String filename) throws IOException {
+        // Adds only one instruction to the node, used when there is no branching
+        void addNextInstr(String onlyInstruction) {
+            addNextInstr(onlyInstruction, true);
+        }
+
+        // TODO: report for the conditionals what the result was (in pseudocritter)
+        boolean programOutputMatchesTreePath(List<String> output) {
+            // TODO: traverse the tree and confirm the sequence of instructions matches a path down the tree
+            return false;
+        }
+
+        static TreeNode makeProgramTree(String filename) throws IOException {
             BufferedReader br = new BufferedReader(new FileReader(filename));
             String line = br.readLine();
             List<String> instructions = new ArrayList<String>();
@@ -91,12 +108,50 @@ public class InstructionPath {
             br.close();
 
             Stack<TreeNode> toParse = new Stack<TreeNode>();
+            // TODO: add line number instance var to each treenode
             toParse.add(new TreeNode(instructions.get(0), new int[Critter.REGISTERS]));
+            TreeNode root = toParse.peek();
 
             while (!toParse.isEmpty()) {
                 TreeNode curr = toParse.pop();
+                // add the next instruction(s) to this node
+                if (curr.instruction.hasBranch()) {
+                    // if true it's the jump to line, if false it is the next line
+                    int trueNextLine = manualResultantLineNumber(curr.registerValues, instructions.indexOf(curr.instruction), curr.instruction.getInstructionJump());
+                    int falseNextLine = instructions.indexOf(curr.instruction) + 1;
+
+                    curr.addNextInstr(instructions.get(trueNextLine), instructions.get(falseNextLine));
+
+                    toParse.push(curr.nextInstrIfTrue);
+                    toParse.push(curr.nextInstrIfFalse);
+                } else if (curr.instruction instanceof Go) {
+                    // only one branch but is not next line
+                    Go g = (Go) (curr.instruction);
+                    // find the resultant line number without access to the critter at runtime
+                    int nextLine = manualResultantLineNumber(curr.registerValues, instructions.indexOf(curr.instruction), g.getInstructionJump());
+                    curr.addNextInstr(instructions.get(nextLine));
+
+                    toParse.push(curr.nextInstrIfTrue);
+                } else {
+                    int nextLine = instructions.indexOf(curr.instruction) + 1;
+                    curr.addNextInstr(instructions.get(nextLine));
+
+                    toParse.push(curr.nextInstrIfTrue);
+                }
             }
-            return null;
+
+
+            return root;
+        }
+
+       static private int manualResultantLineNumber(int[] registers, int currLine, InstructionJump ij) {
+            if (ij.getIsRelative()) {
+                return currLine + ij.getN();
+            } else if (ij.getIsRegister()) {
+                return registers[ij.getN() - 1];
+            } else {
+                return ij.getN();
+            }
         }
 
     }

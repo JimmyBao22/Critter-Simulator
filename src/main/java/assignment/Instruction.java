@@ -7,6 +7,10 @@ public abstract class Instruction {
 
     public abstract boolean isTerminatingInstruction();
 
+    protected InstructionJump getInstructionJump() {
+        return null;
+    }
+
     protected abstract boolean modifiesRegisters();
 
     // Calls the appropriate constructor for an instruction based on its name
@@ -237,6 +241,10 @@ class Go extends Instruction {
         n = new InstructionJump(arguments[0]);
     }
 
+    protected InstructionJump getInstructionJump() {
+        return n;
+    }
+
     public void run(Critter c) {
         // Set the next code line to the result of the instruction jump
         c.setNextCodeLine(n.getResultantLineNumber(c));
@@ -272,6 +280,10 @@ class IfRandom extends Instruction {
         }
 
         n = new InstructionJump(arguments[0]);
+    }
+
+    protected InstructionJump getInstructionJump() {
+        return n;
     }
 
     public void run(Critter c) {
@@ -324,6 +336,10 @@ class IfHungry extends Instruction {
         }
     }
 
+    protected InstructionJump getInstructionJump() {
+        return n;
+    }
+
     protected boolean modifiesRegisters() {
         return false;
     }
@@ -354,6 +370,10 @@ class IfStarving extends Instruction {
         }
 
         n = new InstructionJump(arguments[0]);
+    }
+
+    protected InstructionJump getInstructionJump() {
+        return n;
     }
 
     public void run(Critter c) {
@@ -408,6 +428,10 @@ class IfEmpty extends Instruction {
         }
     }
 
+    protected InstructionJump getInstructionJump() {
+        return n;
+    }
+
     protected boolean modifiesRegisters() {
         return false;
     }
@@ -453,6 +477,10 @@ class IfAlly extends Instruction {
         }
     }
 
+    protected InstructionJump getInstructionJump() {
+        return n;
+    }
+
     protected boolean hasBranch() {
         return true;
     }
@@ -488,6 +516,10 @@ class IfEnemy extends Instruction {
 
         b = new Bearing(arguments[0]);
         n = new InstructionJump(arguments[1]);
+    }
+
+    protected InstructionJump getInstructionJump() {
+        return n;
     }
 
     public void run(Critter c) {
@@ -533,6 +565,10 @@ class IfWall extends Instruction {
 
         b = new Bearing(arguments[0]);
         n = new InstructionJump(arguments[1]);
+    }
+
+    protected InstructionJump getInstructionJump() {
+        return n;
     }
 
     public void run(Critter c) {
@@ -598,6 +634,10 @@ class IfAngle extends Instruction {
 
     protected boolean hasBranch() {
         return true;
+    }
+
+    protected InstructionJump getInstructionJump() {
+        return n;
     }
 
     public boolean isTerminatingInstruction() {
@@ -841,6 +881,10 @@ class IfLt extends Instruction {
         n = new InstructionJump(arguments[2]);
     }
 
+    protected InstructionJump getInstructionJump() {
+        return n;
+    }
+
     public void run(Critter c) {
         if (c.getReg(r1.getIndex()) < c.getReg(r2.getIndex())) {
             c.setNextCodeLine(n.getResultantLineNumber(c));
@@ -886,6 +930,10 @@ class IfEq extends Instruction {
         n = new InstructionJump(arguments[2]);
     }
 
+    protected InstructionJump getInstructionJump() {
+        return n;
+    }
+
     public void run(Critter c) {
         if (c.getReg(r1.getIndex()) == c.getReg(r2.getIndex())) {
             c.setNextCodeLine(n.getResultantLineNumber(c));
@@ -929,6 +977,10 @@ class IfGt extends Instruction {
         r1 = new RegisterIndex(arguments[0]);
         r2 = new RegisterIndex(arguments[1]);
         n = new InstructionJump(arguments[2]);
+    }
+
+    protected InstructionJump getInstructionJump() {
+        return n;
     }
 
     public void run(Critter c) {
