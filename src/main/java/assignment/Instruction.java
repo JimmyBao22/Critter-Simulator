@@ -4,6 +4,58 @@ public abstract class Instruction {
     public abstract void run(Critter c);
 
     public abstract boolean isTerminatingInstruction();
+
+    // Calls the appropriate constructor for an instruction based on its name
+    static Instruction makeInstruction(String operationName, String[] arguments) {
+        switch (operationName) {
+            case "hop":
+                return new Hop(arguments);
+            case "left":
+                return new Left(arguments);
+            case "right":
+                return new Right(arguments);
+            case "infect":
+                return new Infect(arguments);
+            case "eat":
+                return new Eat(arguments);
+            case "go":
+                return new Go(arguments);
+            case "ifrandom":
+                return new IfRandom(arguments);
+            case "ifhungry":
+                return new IfHungry(arguments);
+            case "ifstarving":
+                return new IfStarving(arguments);
+            case "ifempty":
+                return new IfEmpty(arguments);
+            case "ifally":
+                return new IfAlly(arguments);
+            case "ifenemy":
+                return new IfEnemy(arguments);
+            case "ifwall":
+                return new IfWall(arguments);
+            case "ifangle":
+                return new IfAngle(arguments);
+            case "write":
+                return new Write(arguments);
+            case "add":
+                return new Add(arguments);
+            case "sub":
+                return new Sub(arguments);
+            case "inc":
+                return new Inc(arguments);
+            case "dec":
+                return new Dec(arguments);
+            case "iflt":
+                return new IfLt(arguments);
+            case "ifeq":
+                return new IfEq(arguments);
+            case "ifgt":
+                return new IfGt(arguments);
+            default:
+                throw new IllegalArgumentException("Unknown operation");
+        }
+    }
 }
 
 // The critter moves forward if the faced square is empty
