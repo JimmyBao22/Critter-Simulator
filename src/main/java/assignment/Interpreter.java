@@ -32,8 +32,10 @@ public class Interpreter implements CritterInterpreter {
 					instructions.get(nextLine).isTerminatingInstruction()) {
 				instructions.get(nextLine).run(c);
 			}
-		} catch (Exception e) {
-			// TODO handle and report error, but take no actions
+		}
+		catch (Exception e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -42,10 +44,8 @@ public class Interpreter implements CritterInterpreter {
 	}
 
 
-	// TODO comment according to API
 	public CritterSpecies loadSpecies(String filename) throws IOException {
 		try {
-			// TODO improve file read security to provide accurate error message
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			List<Instruction> instructions = new ArrayList<Instruction>();
 
@@ -141,9 +141,9 @@ public class Interpreter implements CritterInterpreter {
 				}
 				line = br.readLine();
 			}
-
 			return new CritterSpecies(speciesName, instructions);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 			return null;

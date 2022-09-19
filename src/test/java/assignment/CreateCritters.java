@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 
 public class CreateCritters {
 
-    static String[] arr = {"hop", "hop", "hop", "hop", "hop", "hop", "hop", "hop", "left", "left", "left", "right", "right", "right",
+    public static String[] arr = {"hop", "hop", "hop", "hop", "hop", "hop", "hop", "hop", "left", "left", "left", "right", "right", "right",
             "infect", "infect", "infect", "infect", "infect", "eat", "eat", "eat", "eat", "eat", "go", "go", "go",
             "ifrandom", "ifhungry", "ifstarving", "ifempty", "ifally", "ifenemy", "ifwall", "ifangle", "write", "add",
             "sub", "inc", "dec", "iflt", "ifeq", "ifgt"};
@@ -90,6 +90,7 @@ public class CreateCritters {
                         break;
                 }
             }
+            out.println("go 1");
             out.println();
             out.println();
             out.close();
@@ -110,12 +111,15 @@ public class CreateCritters {
             int relativeJump = (int) (Math.random() * numInstructions/5 - numInstructions/10);
             if (relativeJump >= 0) {
                 return "+" + relativeJump;
-            } else {
+            }
+            else {
                 return Integer.toString(relativeJump);
             }
-        } else if (randomValue < 0.66) {
+        }
+        else if (randomValue < 0.66) {
             return createRegister();
-        } else {
+        }
+        else {
             return Integer.toString((int) (Math.random() * numInstructions + 1));
         }
     }
