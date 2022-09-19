@@ -25,7 +25,7 @@ public class ReproduceCritters {
 
             for (int j=0; j<k; j++) {
 
-                if (Math.random() < 0.8) {
+                if (Math.random() < 0.86) {
                     // use previous critters
                     out.println(bestCritterInstructions.get(j));
                     continue;
@@ -102,6 +102,7 @@ public class ReproduceCritters {
                         break;
                 }
             }
+            out.println("go 1");
             out.println();
             out.println();
             out.close();

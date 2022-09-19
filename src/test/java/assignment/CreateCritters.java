@@ -90,6 +90,7 @@ public class CreateCritters {
                         break;
                 }
             }
+            out.println("go 1");
             out.println();
             out.println();
             out.close();

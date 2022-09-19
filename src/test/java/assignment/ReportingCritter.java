@@ -11,6 +11,7 @@ public class ReportingCritter implements Critter {
     private int[] reg = new int[10];
     private int hungerLevel = 0;
     PrintWriter out;
+    private int pendingCodeLine = 1;
 
     public ReportingCritter(CritterSpecies species) throws IOException {
         this.species = species;
@@ -67,10 +68,12 @@ public class ReportingCritter implements Critter {
     }
 
     public void infect() {
+        this.pendingCodeLine = 1;
         out.println("infect");
     }
 
     public void infect(int n) {
+        this.pendingCodeLine = n;
         out.println("infect " + n);
     }
 
