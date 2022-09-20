@@ -42,32 +42,38 @@ public class InstructionPath {
                     int r2Index = addInstr.getR2().getIndex() - 1;
 
                     registerValues[r1Index] += registerValues[r2Index];
-                } else if (instruction instanceof Sub) {
+                }
+                else if (instruction instanceof Sub) {
                     Sub subInstr = (Sub) (instruction);
                     int r1Index = subInstr.getR1().getIndex() - 1;
                     int r2Index = subInstr.getR2().getIndex() - 1;
 
                     registerValues[r1Index] -= registerValues[r2Index];
-                } else if (instruction instanceof Inc) {
+                }
+                else if (instruction instanceof Inc) {
                     Inc incInstr = (Inc) (instruction);
                     int rIndex = incInstr.getR1().getIndex() - 1;
 
                     registerValues[rIndex]++;
-                } else if (instruction instanceof Dec) {
+                }
+                else if (instruction instanceof Dec) {
                     Dec decInstr = (Dec) (instruction);
                     int rIndex = decInstr.getR1().getIndex() - 1;
 
                     registerValues[rIndex]--;
-                } else if (instruction instanceof Write) {
+                }
+                else if (instruction instanceof Write) {
                     Write writeInstr = (Write) (instruction);
                     int rIndex = writeInstr.getReg().getIndex() - 1;
                     int val = writeInstr.getV();
 
                     registerValues[rIndex] = val;
-                } else {
+                }
+                else {
                     throw new IllegalArgumentException("Instruction cannot modify registers and not be one of Add, Sub, Inc, Dec, Write");
                 }
-            } else {
+            }
+            else {
                 registerValues = previousRegisters;
             }
         }
@@ -75,7 +81,8 @@ public class InstructionPath {
         void addNextInstr(String instruction, boolean condition) {
             if (condition) {
                 nextInstrIfTrue = new TreeNode(instruction, registerValues);
-            } else {
+            }
+            else {
                 nextInstrIfFalse = new TreeNode(instruction, registerValues);
             }
         }
@@ -124,7 +131,8 @@ public class InstructionPath {
 
                     toParse.push(curr.nextInstrIfTrue);
                     toParse.push(curr.nextInstrIfFalse);
-                } else if (curr.instruction instanceof Go) {
+                }
+                else if (curr.instruction instanceof Go) {
                     // only one branch but is not next line
                     Go g = (Go) (curr.instruction);
                     // find the resultant line number without access to the critter at runtime
@@ -132,7 +140,8 @@ public class InstructionPath {
                     curr.addNextInstr(instructions.get(nextLine));
 
                     toParse.push(curr.nextInstrIfTrue);
-                } else {
+                }
+                else {
                     int nextLine = instructions.indexOf(curr.instruction) + 1;
                     curr.addNextInstr(instructions.get(nextLine));
 
@@ -140,19 +149,19 @@ public class InstructionPath {
                 }
             }
 
-
             return root;
         }
 
        static private int manualResultantLineNumber(int[] registers, int currLine, InstructionJump ij) {
             if (ij.getIsRelative()) {
                 return currLine + ij.getN();
-            } else if (ij.getIsRegister()) {
+            }
+            else if (ij.getIsRegister()) {
                 return registers[ij.getN() - 1];
-            } else {
+            }
+            else {
                 return ij.getN();
             }
         }
-
     }
 }
