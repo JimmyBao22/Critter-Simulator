@@ -3,6 +3,7 @@ package assignment;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReportingCritter implements Critter {
@@ -12,10 +13,12 @@ public class ReportingCritter implements Critter {
     private int hungerLevel = 0;
     PrintWriter out;
     private int pendingCodeLine = 1;
+    public ArrayList<String> output;
 
     public ReportingCritter(CritterSpecies species) throws IOException {
         this.species = species;
         out = new PrintWriter(new FileWriter("src/test/java/assignment/CritterReport.txt"));
+        output = new ArrayList<String>();
     }
 
     public List getCode() {
@@ -52,28 +55,34 @@ public class ReportingCritter implements Critter {
     }
 
     public void hop() {
+        output.add("hop");
         out.println("hop");
     }
 
     public void left() {
+        output.add("left");
         out.println("left");
     }
 
     public void right() {
+        output.add("right");
         out.println("right");
     }
 
     public void eat() {
+        output.add("eat");
         out.println("eat");
     }
 
     public void infect() {
         this.pendingCodeLine = 1;
+        output.add("infect");
         out.println("infect");
     }
 
     public void infect(int n) {
         this.pendingCodeLine = n;
+        output.add("infect " + n);
         out.println("infect " + n);
     }
 
