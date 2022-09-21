@@ -32,8 +32,7 @@ public class Interpreter implements CritterInterpreter {
 					instructions.get(nextLine).isTerminatingInstruction()) {
 				instructions.get(nextLine).run(c);
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
@@ -75,8 +74,7 @@ public class Interpreter implements CritterInterpreter {
 			}
 
 			return new CritterSpecies(speciesName, instructions);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace();
 			return null;

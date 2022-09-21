@@ -17,16 +17,14 @@ class InstructionJump {
         if (argument.charAt(0) == '+' || argument.charAt(0) == '-') {
             this.isRelative = true;
             this.isRegister = false;
-        }
-        // determine if the jump is a register index
-        else if (argument.charAt(0) == 'r') {
+        } else if (argument.charAt(0) == 'r') {
+            // determine if the jump is a register index
             this.isRelative = false;
             this.isRegister = true;
             // removes the r from the register index, while setting respective boolean to true
             argument = argument.substring(1);
-        }
-        // determine if the jump is an absolute jump
-        else {
+        } else {
+            // determine if the jump is an absolute jump
             this.isRelative = false;
             this.isRegister = false;
         }
@@ -46,11 +44,9 @@ class InstructionJump {
     public int getResultantLineNumber(Critter c) {
         if (isRelative) {
             return c.getNextCodeLine() + n;
-        }
-        else if (isRegister) {
+        } else if (isRegister) {
             return c.getReg(n);
-        }
-        else {
+        } else {
             return n;
         }
     }

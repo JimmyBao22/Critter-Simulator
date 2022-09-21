@@ -48,6 +48,7 @@ public abstract class Instruction {
         return makeInstruction(operationName, tokens);
     }
 
+    // specific abstract method utilized in testing (InstructionPath)
     protected abstract boolean hasBranch();
 }
 
