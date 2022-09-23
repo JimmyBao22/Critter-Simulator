@@ -26,6 +26,7 @@ public class ReportingCritter implements Critter {
     }
 
     public int getNextCodeLine() {
+        System.out.println("codeline: " + this.codeLine);
         return this.codeLine;
     }
 
@@ -46,62 +47,80 @@ public class ReportingCritter implements Critter {
         // return with equal probability
         double probability = Math.random();
         if (probability < 0.33) {
+            System.out.println("HUNGRY");
             return HungerLevel.HUNGRY;
         }
         else if (probability < 0.66) {
+            System.out.println("STARVING");
             return HungerLevel.STARVING;
         }
-        else return HungerLevel.SATISFIED;
+        else {
+            System.out.println("SATISFIED");
+            return HungerLevel.SATISFIED;
+        }
     }
 
     public void hop() {
         output.add("hop");
         out.println("hop");
+        System.out.println("hop");
     }
 
     public void left() {
         output.add("left");
         out.println("left");
+        System.out.println("left");
     }
 
     public void right() {
         output.add("right");
         out.println("right");
+        System.out.println("right");
     }
 
     public void eat() {
         output.add("eat");
         out.println("eat");
+        System.out.println("eat");
     }
 
     public void infect() {
         this.pendingCodeLine = 1;
         output.add("infect");
         out.println("infect");
+        System.out.println("infect");
     }
 
     public void infect(int n) {
         this.pendingCodeLine = n;
         output.add("infect " + n);
         out.println("infect " + n);
+        System.out.println("infect " + n);
     }
 
     public int getCellContent(int n) {
         // return with equal probability
         double probability = Math.random();
         if (probability < 0.2) {
+            System.out.println("BAD");
             return -1;
         }
         else if (probability < 0.4) {
+            System.out.println("EMPTY");
             return 0;
         }
         else if (probability < 0.6) {
+            System.out.println("WALL");
             return 1;
         }
         else if (probability < 0.8) {
+            System.out.println("ENEMY");
             return 2;
         }
-        else return 3;
+        else {
+            System.out.println("ALLY");
+            return 3;
+        }
     }
 
     public int getOffAngle(int n) {
@@ -113,6 +132,7 @@ public class ReportingCritter implements Critter {
 
         for (int i=0; i<length; i++) {
             if (probability < i+1) {
+                System.out.println("getOffAngle: " + arr[i]);
                 return arr[i];
             }
         }
