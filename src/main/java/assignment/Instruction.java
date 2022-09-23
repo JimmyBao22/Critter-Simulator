@@ -7,12 +7,6 @@ public abstract class Instruction {
 
     public abstract boolean isTerminatingInstruction();
 
-    protected InstructionJump getInstructionJump() {
-        return null;
-    }
-
-    protected abstract boolean modifiesRegisters();
-
     // Calls the appropriate constructor for an instruction based on its name
     static Instruction makeInstruction(String operationName, String[] arguments) {
         return switch (operationName) {
@@ -41,15 +35,6 @@ public abstract class Instruction {
             default -> throw new IllegalArgumentException("Unknown operation");
         };
     }
-    static Instruction makeInstruction(String fullOperation) {
-        String[] tokens = fullOperation.split(" ");
-        String operationName = tokens[0];
-        tokens = Arrays.copyOfRange(tokens, 1, tokens.length);
-        return makeInstruction(operationName, tokens);
-    }
-
-    // specific abstract method utilized in testing (InstructionPath)
-    protected abstract boolean hasBranch();
 }
 
 // The critter moves forward if the faced square is empty
@@ -64,15 +49,7 @@ class Hop extends Instruction {
         c.hop();
         c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
-
-    protected boolean modifiesRegisters() {
-        return false;
-    }
-
-    protected boolean hasBranch() {
-        return false;
-    }
-
+    
     public boolean isTerminatingInstruction() {
         return true;
     }
@@ -91,14 +68,6 @@ class Left extends Instruction {
     public void run(Critter c) {
         c.left();
         c.setNextCodeLine(c.getNextCodeLine() + 1);
-    }
-
-    protected boolean modifiesRegisters() {
-        return false;
-    }
-
-    protected boolean hasBranch() {
-        return false;
     }
 
     public boolean isTerminatingInstruction() {
@@ -121,14 +90,6 @@ class Right extends Instruction {
     public void run(Critter c) {
         c.right();
         c.setNextCodeLine(c.getNextCodeLine() + 1);
-    }
-
-    protected boolean modifiesRegisters() {
-        return false;
-    }
-
-    protected boolean hasBranch() {
-        return false;
     }
 
     public boolean isTerminatingInstruction() {
@@ -163,14 +124,6 @@ class Infect extends Instruction {
         } else {
             n = new InstructionJump(arguments[0]);
         }
-    }
-
-    protected boolean modifiesRegisters() {
-        return false;
-    }
-
-    protected boolean hasBranch() {
-        return false;
     }
 
     public void run(Critter c) {
@@ -209,14 +162,6 @@ class Eat extends Instruction {
         return true;
     }
 
-    protected boolean modifiesRegisters() {
-        return false;
-    }
-
-    protected boolean hasBranch() {
-        return false;
-    }
-
     public String toString() {
         return "eat";
     }
@@ -242,21 +187,9 @@ class Go extends Instruction {
         n = new InstructionJump(arguments[0]);
     }
 
-    protected InstructionJump getInstructionJump() {
-        return n;
-    }
-
     public void run(Critter c) {
         // Set the next code line to the result of the instruction jump
         c.setNextCodeLine(n.getResultantLineNumber(c));
-    }
-
-    protected boolean modifiesRegisters() {
-        return false;
-    }
-
-    protected boolean hasBranch() {
-        return false;
     }
     
     public boolean isTerminatingInstruction() {
@@ -282,11 +215,7 @@ class IfRandom extends Instruction {
 
         n = new InstructionJump(arguments[0]);
     }
-
-    protected InstructionJump getInstructionJump() {
-        return n;
-    }
-
+    
     public void run(Critter c) {
         if (Math.random() < 0.5) {
             // jump to the nth instruction
@@ -295,14 +224,6 @@ class IfRandom extends Instruction {
             // otherwise continue as usual
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
-    }
-
-    protected boolean modifiesRegisters() {
-        return false;
-    }
-
-    protected boolean hasBranch() {
-        return true;
     }
     
     public boolean isTerminatingInstruction() {
@@ -336,18 +257,6 @@ class IfHungry extends Instruction {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
     }
-
-    protected InstructionJump getInstructionJump() {
-        return n;
-    }
-
-    protected boolean modifiesRegisters() {
-        return false;
-    }
-
-    protected boolean hasBranch() {
-        return true;
-    }
     
     public boolean isTerminatingInstruction() {
         return false;
@@ -373,10 +282,6 @@ class IfStarving extends Instruction {
         n = new InstructionJump(arguments[0]);
     }
 
-    protected InstructionJump getInstructionJump() {
-        return n;
-    }
-
     public void run(Critter c) {
         if (c.getHungerLevel() == Critter.HungerLevel.STARVING) {
             // either hungry or starving
@@ -384,14 +289,6 @@ class IfStarving extends Instruction {
         } else {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
-    }
-
-    protected boolean modifiesRegisters() {
-        return false;
-    }
-
-    protected boolean hasBranch() {
-        return true;
     }
     
     public boolean isTerminatingInstruction() {
@@ -429,18 +326,6 @@ class IfEmpty extends Instruction {
         }
     }
 
-    protected InstructionJump getInstructionJump() {
-        return n;
-    }
-
-    protected boolean modifiesRegisters() {
-        return false;
-    }
-
-    protected boolean hasBranch() {
-        return true;
-    }
-    
     public boolean isTerminatingInstruction() {
         return false;
     }
@@ -478,18 +363,6 @@ class IfAlly extends Instruction {
         }
     }
 
-    protected InstructionJump getInstructionJump() {
-        return n;
-    }
-
-    protected boolean hasBranch() {
-        return true;
-    }
-
-    protected boolean modifiesRegisters() {
-        return false;
-    }
-
     public boolean isTerminatingInstruction() {
         return false;
     }
@@ -519,10 +392,6 @@ class IfEnemy extends Instruction {
         n = new InstructionJump(arguments[1]);
     }
 
-    protected InstructionJump getInstructionJump() {
-        return n;
-    }
-
     public void run(Critter c) {
         if (c.getCellContent(b.getIntValue()) == Critter.ENEMY) {
             // either hungry or starving
@@ -530,14 +399,6 @@ class IfEnemy extends Instruction {
         } else {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
-    }
-
-    protected boolean hasBranch() {
-        return true;
-    }
-
-    protected boolean modifiesRegisters() {
-        return false;
     }
 
     public boolean isTerminatingInstruction() {
@@ -568,10 +429,6 @@ class IfWall extends Instruction {
         n = new InstructionJump(arguments[1]);
     }
 
-    protected InstructionJump getInstructionJump() {
-        return n;
-    }
-
     public void run(Critter c) {
         if (c.getCellContent(b.getIntValue()) == Critter.WALL) {
             // either hungry or starving
@@ -579,14 +436,6 @@ class IfWall extends Instruction {
         } else {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
-    }
-
-    protected boolean modifiesRegisters() {
-        return false;
-    }
-
-    protected boolean hasBranch() {
-        return true;
     }
 
     public boolean isTerminatingInstruction() {
@@ -629,18 +478,6 @@ class IfAngle extends Instruction {
         }
     }
 
-    protected boolean modifiesRegisters() {
-        return false;
-    }
-
-    protected boolean hasBranch() {
-        return true;
-    }
-
-    protected InstructionJump getInstructionJump() {
-        return n;
-    }
-
     public boolean isTerminatingInstruction() {
         return false;
     }
@@ -669,22 +506,6 @@ class Write extends Instruction {
         c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
 
-    protected boolean hasBranch() {
-        return false;
-    }
-
-    protected boolean modifiesRegisters() {
-        return true;
-    }
-
-    protected RegisterIndex getReg() {
-        return r;
-    }
-
-    protected Integer getV() {
-        return v;
-    }
-
     public boolean isTerminatingInstruction() {
         return false;
     }
@@ -708,26 +529,10 @@ class Add extends Instruction {
         r2 = new RegisterIndex(arguments[1]);
     }
 
-    protected RegisterIndex getR1() {
-        return r1;
-    }
-
-    protected RegisterIndex getR2() {
-        return r2;
-    }
-
     public void run(Critter c) {
         int result = c.getReg(r1.getIndex()) + c.getReg(r2.getIndex());
         c.setReg(r1.getIndex(), result);
         c.setNextCodeLine(c.getNextCodeLine() + 1);
-    }
-
-    protected boolean hasBranch() {
-        return false;
-    }
-
-    protected boolean modifiesRegisters() {
-        return true;
     }
 
     public boolean isTerminatingInstruction() {
@@ -759,22 +564,6 @@ class Sub extends Instruction {
         c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
 
-    protected boolean modifiesRegisters() {
-        return true;
-    }
-
-    protected RegisterIndex getR1() {
-        return r1;
-    }
-
-    protected RegisterIndex getR2() {
-        return r2;
-    }
-
-    protected boolean hasBranch() {
-        return false;
-    }
-
     public boolean isTerminatingInstruction() {
         return false;
     }
@@ -802,18 +591,6 @@ class Inc extends Instruction {
         c.setNextCodeLine(c.getNextCodeLine() + 1);
     }
 
-    protected boolean modifiesRegisters() {
-        return true;
-    }
-
-    protected RegisterIndex getR1() {
-        return r1;
-    }
-
-    protected boolean hasBranch() {
-        return false;
-    }
-
     public boolean isTerminatingInstruction() {
         return true;
     }
@@ -839,18 +616,6 @@ class Dec extends Instruction {
         int result = c.getReg(r1.getIndex()) - 1;
         c.setReg(r1.getIndex(), result);
         c.setNextCodeLine(c.getNextCodeLine() + 1);
-    }
-
-    protected boolean modifiesRegisters() {
-        return true;
-    }
-
-    protected RegisterIndex getR1() {
-        return r1;
-    }
-
-    protected boolean hasBranch() {
-        return false;
     }
 
     public boolean isTerminatingInstruction() {
@@ -882,10 +647,6 @@ class IfLt extends Instruction {
         n = new InstructionJump(arguments[2]);
     }
 
-    protected InstructionJump getInstructionJump() {
-        return n;
-    }
-
     public void run(Critter c) {
         if (c.getReg(r1.getIndex()) < c.getReg(r2.getIndex())) {
             c.setNextCodeLine(n.getResultantLineNumber(c));
@@ -896,10 +657,6 @@ class IfLt extends Instruction {
 
     protected boolean modifiesRegisters() {
         return false;
-    }
-
-    protected boolean hasBranch() {
-        return true;
     }
 
     public boolean isTerminatingInstruction() {
@@ -931,24 +688,12 @@ class IfEq extends Instruction {
         n = new InstructionJump(arguments[2]);
     }
 
-    protected InstructionJump getInstructionJump() {
-        return n;
-    }
-
     public void run(Critter c) {
         if (c.getReg(r1.getIndex()) == c.getReg(r2.getIndex())) {
             c.setNextCodeLine(n.getResultantLineNumber(c));
         } else {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
-    }
-
-    protected boolean modifiesRegisters() {
-        return false;
-    }
-
-    protected boolean hasBranch() {
-        return true;
     }
 
     public boolean isTerminatingInstruction() {
@@ -980,24 +725,12 @@ class IfGt extends Instruction {
         n = new InstructionJump(arguments[2]);
     }
 
-    protected InstructionJump getInstructionJump() {
-        return n;
-    }
-
     public void run(Critter c) {
         if (c.getReg(r1.getIndex()) > c.getReg(r2.getIndex())) {
             c.setNextCodeLine(n.getResultantLineNumber(c));
         } else {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
-    }
-
-    protected boolean hasBranch() {
-        return true;
-    }
-
-    protected boolean modifiesRegisters() {
-        return false;
     }
 
     public boolean isTerminatingInstruction() {
