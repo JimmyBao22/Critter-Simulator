@@ -471,9 +471,10 @@ class IfAngle extends Instruction {
     public void run(Critter c) {
         int offAngle = c.getOffAngle(b1.getIntValue());
         if (offAngle == b2.getIntValue()) {
-            // either hungry or starving
+            // do a jump
             c.setNextCodeLine(n.getResultantLineNumber(c));
         } else {
+            // just go to next line
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
     }
@@ -653,10 +654,6 @@ class IfLt extends Instruction {
         } else {
             c.setNextCodeLine(c.getNextCodeLine() + 1);
         }
-    }
-
-    protected boolean modifiesRegisters() {
-        return false;
     }
 
     public boolean isTerminatingInstruction() {

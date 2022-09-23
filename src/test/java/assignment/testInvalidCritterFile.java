@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
+// confirm that malformed critter files are parsed as null without throwing exception
 public class testInvalidCritterFile {
 
     @Test
@@ -17,34 +18,10 @@ public class testInvalidCritterFile {
 
         CritterInterpreter ci = new Interpreter();
 
-        // read original file
-        String filename = filePrefix + fileSuffix;
-        StringBuilder text = new StringBuilder();
-        BufferedReader br = new BufferedReader(new FileReader(filename));
-        String line = br.readLine();
-        while (line != null) {
-            text.append(line);
-            text.append('\n');
-            line = br.readLine();
-        }
-        br.close();
-
-        // convert to objects
-        try {
+        for (int i = 0; i < 10; i++) {
+            String filename = filePrefix + i + fileSuffix;
             CritterSpecies cs = ci.loadSpecies(filename);
-            List<Instruction> instructions = cs.getCode();
-            StringBuilder outputInstructions = new StringBuilder();
-            // convert back to string
-            outputInstructions.append(cs.getName());
-            outputInstructions.append("\n");
-
-            for (Instruction inst : instructions) {
-                outputInstructions.append(inst.toString());
-                outputInstructions.append("\n");
-            }
-            outputInstructions.append("\n\n");
-        } catch (Exception e) {
-            Assertions.assertTrue(true);
+            Assertions.assertEquals(cs, null);
         }
     }
 }

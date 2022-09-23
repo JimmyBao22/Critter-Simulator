@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+// "pseudo-critter" that displays which operations were called with which arguments
 public class ReportingCritter implements Critter {
     private CritterSpecies species;
     private int codeLine = 1;

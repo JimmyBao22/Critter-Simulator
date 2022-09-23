@@ -73,10 +73,20 @@ public class Interpreter implements CritterInterpreter {
 				line = br.readLine();
 			}
 
+			br.close();
+
 			return new CritterSpecies(speciesName, instructions);
+		} catch (IllegalArgumentException e) {
+			// user made an issue in their instruction file
+			System.err.println("Error parsing instructions: " + e.getMessage());
+			return null;
+		} catch (IOException e) {
+			// some file read error
+			System.err.println("Error reading instruction file: " + e.getMessage());
+			return null;
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
-			e.printStackTrace();
+			// any other issues
+			System.err.println("Error while trying to load instructions: " + e.getMessage());
 			return null;
 		}
 	}

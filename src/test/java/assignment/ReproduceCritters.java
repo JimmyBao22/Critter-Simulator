@@ -3,6 +3,7 @@ package assignment;
 import java.io.*;
 import java.util.ArrayList;
 
+// used for manual natural selection of the best critter out of a random group
 public class ReproduceCritters {
 
     public static void main(String[] args) throws IOException {

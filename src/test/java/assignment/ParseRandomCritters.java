@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
+// create random critters, parse them, convert them to string representations, confirm they are equal to original
 public class ParseRandomCritters {
 
     @Test

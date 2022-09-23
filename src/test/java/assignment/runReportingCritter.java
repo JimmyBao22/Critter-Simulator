@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
+// used to manually confirm the execution path of an instruction file
 public class runReportingCritter {
 
     @Test
